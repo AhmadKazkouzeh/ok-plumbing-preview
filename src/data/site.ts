@@ -13,7 +13,7 @@ export const BUSINESS = {
   shortName: 'OK Plumbing',
   established: 2010,
   yearsLabel: '15+',
-  /** 24/7 emergency mobile. */
+  /** Main mobile. */
   mobile: { display: '07444 419144', tel: '+447444419144' },
   landline: { display: '020 8811 2551', tel: '+442088112551' },
   email: 'info@okplumbing.co.uk',
@@ -35,7 +35,7 @@ export const BUSINESS = {
   hours: {
     weekday: 'Mon–Fri 8am–6pm',
     saturday: 'Sat 9am–2pm',
-    emergency: 'Emergencies any hour, any day',
+    closed: 'Closed Sundays and bank holidays',
   },
   // TODO: set the real Gas Safe registration number before launch. Sam can read it
   // off the Gas Safe business portal dashboard, or Gas Safe will confirm it by email
@@ -45,7 +45,7 @@ export const BUSINESS = {
   // business's number, and a registration number is the thing customers are told to
   // check before letting anyone touch their gas. Every place that shows it degrades
   // to a plain "Gas Safe registered" while this is null, so nothing false ships.
-  // Set it here and the number reappears in the emergency bar, trust strip, mobile
+  // Set it here and the number reappears in the top bar, trust strip, mobile
   // drawer, footer and terms page at once.
   gasSafeNumber: null as string | null,
   // Read off the live Google Business Profile ("Ok Plumbing and Heating",
@@ -70,7 +70,6 @@ export type IconName =
   | 'boiler'
   | 'heating'
   | 'plumbing'
-  | 'emergency'
   | 'maintenance'
   | 'bathroom'
   | 'aircon';
@@ -138,20 +137,6 @@ export const SERVICES: Service[] = [
   },
   {
     number: '04',
-    name: 'Emergency Services',
-    icon: 'emergency',
-    cardBody:
-      'No heating, no hot water, or water coming through a ceiling? Call any hour and speak to the engineer on call.',
-    rowBody:
-      'No heating, no hot water, a leak you cannot stop or a gas smell. Out of hours the phone reaches the engineer on call, not an answering service, and you are told the attendance rate before we set off.',
-    href: '/services/',
-    linkLabel: 'More detail',
-    photoCaption: 'photo — night callout, van headlights',
-    photoSlug: 'service-emergency',
-    photoAlt: 'A van on a dark street with its headlights on',
-  },
-  {
-    number: '05',
     name: 'System Maintenance',
     icon: 'maintenance',
     cardBody:
@@ -165,7 +150,7 @@ export const SERVICES: Service[] = [
     photoAlt: 'An engineer completing a checklist on a clipboard',
   },
   {
-    number: '06',
+    number: '05',
     name: 'Bathroom Installations',
     icon: 'bathroom',
     cardBody:
@@ -179,7 +164,7 @@ export const SERVICES: Service[] = [
     photoAlt: 'A finished modern bathroom with a walk-in shower',
   },
   {
-    number: '07',
+    number: '06',
     name: 'Air Conditioning Installation',
     icon: 'aircon',
     cardBody:
@@ -217,7 +202,7 @@ export const STEPS = [
   {
     eyebrow: 'Step one',
     title: 'You call or book online',
-    body: 'Tell us what is happening. Emergencies get a slot the same day, everything else within 48 hours.',
+    body: 'Tell us what is happening. We book you in for the first slot that suits you, usually within 48 hours.',
   },
   {
     eyebrow: 'Step two',
@@ -354,8 +339,8 @@ export const REVIEWS = [
 
 export const FAQS = [
   {
-    q: 'Are you really available 24/7?',
-    a: 'Yes. Out of hours the phone goes to the engineer on call rather than an answering service, so you get a real answer on whether we can attend and when.',
+    q: 'What are your hours?',
+    a: 'Monday to Friday 8am to 6pm and Saturday 9am to 2pm. Calls in those hours reach an engineer rather than an answering service, so you get a real answer on when we can attend.',
   },
   {
     q: 'How much does a new boiler cost?',
@@ -363,7 +348,7 @@ export const FAQS = [
   },
   {
     q: 'Do you charge for callouts?',
-    a: 'No callout charge on work we quote for. Emergency attendance out of hours carries a fixed first-hour rate, told to you on the phone before we set off.',
+    a: 'No. There is no callout charge on work we quote for — the survey and the written quote cost you nothing.',
   },
   {
     q: 'Can you service a boiler you did not fit?',
@@ -422,7 +407,6 @@ export const FOOTER_SERVICE_LINKS = [
   { label: 'Boiler installation', href: '/services/boiler-installation-repairs/' },
   { label: 'Central heating', href: '/services/' },
   { label: 'Plumbing repairs', href: '/services/' },
-  { label: 'Emergency call-out', href: '/services/' },
   { label: 'Servicing', href: '/services/' },
   { label: 'Bathrooms', href: '/services/' },
   { label: 'Air conditioning', href: '/services/' },

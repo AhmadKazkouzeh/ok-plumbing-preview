@@ -7,28 +7,26 @@ import { AIRCON_CHIPS, BUSINESS, CONTACT_ROUTE, SERVICES } from '~/data/site';
 
 <Base
   title="Our Services | Plumbing, Heating & Boilers | OK Plumbing"
-  description="Seven services across London: boilers, central heating, plumbing repairs, 24/7 emergencies, servicing and CP12s, bathrooms and air conditioning installation."
+  description="Six services across London: boilers, central heating, plumbing repairs, servicing and CP12s, bathroom installations and air conditioning installation."
 >
   <PageHeader
     crumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
     title="Everything we do, in one place"
     titleClass="max-w-[20ch]"
-    intro="Seven services across domestic and commercial property in Greater London. Free quotes, fixed written prices and Gas Safe registered engineers on every gas job."
+    intro="Six services across domestic and commercial property in Greater London. Free quotes, fixed written prices and Gas Safe registered engineers on every gas job."
   />
 
   <section class="section-sm bg-white px-6">
     <ul class="mx-auto grid max-w-[1240px] list-none gap-[18px] p-0">
       {
         SERVICES.map((s) => {
-          const isEmergency = s.icon === 'emergency';
           const isAircon = s.icon === 'aircon';
           return (
             <li
               class:list={[
                 'autogrid items-center gap-7 rounded-panel p-[clamp(24px,3vw,34px)]',
-                isEmergency && 'on-dark bg-ink text-tint',
                 isAircon && 'border border-blue/20 bg-pale',
-                !isEmergency && !isAircon && 'border border-ink/10',
+                !isAircon && 'border border-ink/10',
               ]}
               style="--min:280px"
             >
@@ -36,16 +34,15 @@ import { AIRCON_CHIPS, BUSINESS, CONTACT_ROUTE, SERVICES } from '~/data/site';
                 <p class="mb-3.5 flex items-center gap-3">
                   <span
                     class:list={[
-                      'text-[11.5px] font-extrabold tracking-[.09em] uppercase',
-                      isEmergency ? 'text-orange' : 'text-blue',
+                      'text-[11.5px] font-extrabold tracking-[.09em] uppercase text-blue',
                     ]}
                   >
-                    {isEmergency ? `${s.number} · 24/7` : s.number}
+                    {s.number}
                   </span>
                   <span
                     class:list={[
                       'h-px flex-1',
-                      isEmergency ? 'bg-tint/18' : isAircon ? 'bg-blue/25' : 'bg-ink/12',
+                      isAircon ? 'bg-blue/25' : 'bg-ink/12',
                     ]}
                     aria-hidden="true"
                   />
@@ -55,9 +52,8 @@ import { AIRCON_CHIPS, BUSINESS, CONTACT_ROUTE, SERVICES } from '~/data/site';
 
                 <p
                   class:list={[
-                    'm-0 max-w-[60ch] text-[15.5px] leading-[1.65] font-medium',
-                    isEmergency ? 'text-tint/75' : 'text-body',
-                    (isEmergency || isAircon || s.number === '01') && 'mb-4',
+                    'm-0 max-w-[60ch] text-[15.5px] leading-[1.65] font-medium text-body',
+                    (isAircon || s.number === '01') && 'mb-4',
                   ]}
                 >
                   {s.rowBody}
@@ -66,17 +62,6 @@ import { AIRCON_CHIPS, BUSINESS, CONTACT_ROUTE, SERVICES } from '~/data/site';
                 {s.number === '01' && (
                   <a href={s.href} class="text-sm font-extrabold text-blue">
                     Open the boiler page →
-                  </a>
-                )}
-
-                {isEmergency && (
-                  <a
-                    href={`tel:${BUSINESS.mobile.tel}`}
-                    data-track="call"
-                    class="btn btn-primary text-[15px]"
-                    style="padding:15px 24px"
-                  >
-                    Call {BUSINESS.mobile.display}
                   </a>
                 )}
 
@@ -97,7 +82,7 @@ import { AIRCON_CHIPS, BUSINESS, CONTACT_ROUTE, SERVICES } from '~/data/site';
                 alt={s.photoAlt}
                 ratio="16/10"
                 radius={12}
-                tone={isEmergency ? 'dark' : isAircon ? 'pale' : 'light'}
+                tone={isAircon ? 'pale' : 'light'}
                 width={720}
                 sizes="(max-width: 860px) 100vw, 42vw"
               />

@@ -1,6 +1,6 @@
 ---
 import '~/styles/global.css';
-import EmergencyBar from '~/components/EmergencyBar.astro';
+import TopBar from '~/components/TopBar.astro';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import MobileCallBar from '~/components/MobileCallBar.astro';
@@ -34,7 +34,7 @@ const localBusiness = {
   email: BUSINESS.email,
   foundingDate: String(BUSINESS.established),
   description:
-    'Gas Safe registered plumbing and heating engineers covering all 32 London boroughs. Boiler installation and repairs, central heating, plumbing repairs, 24/7 emergency call-out, servicing, bathrooms and air conditioning installation.',
+    'Gas Safe registered plumbing and heating engineers covering all 32 London boroughs. Boiler installation and repairs, central heating, plumbing repairs, servicing, bathroom installations and air conditioning installation.',
   // Service-area business: engineers travel to the customer, so there is no
   // public street address, postcode or geo point. Locality and country keep the
   // PostalAddress valid; areaServed carries what a searcher actually needs.
@@ -49,14 +49,8 @@ const localBusiness = {
     {
       '@type': 'ContactPoint',
       telephone: BUSINESS.mobile.tel,
-      contactType: 'emergency',
+      contactType: 'customer service',
       availableLanguage: 'en',
-      hoursAvailable: {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        opens: '00:00',
-        closes: '23:59',
-      },
     },
     {
       '@type': 'ContactPoint',
@@ -152,7 +146,7 @@ const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     </a>
 
     <div class="max-w-full overflow-x-hidden">
-      <EmergencyBar />
+      <TopBar />
       <Header />
       <main id="main">
         <slot />

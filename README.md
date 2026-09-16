@@ -127,9 +127,11 @@ src/
   data/site.ts          all business facts and copy — the one place to edit content
   layouts/Base.astro    <head>, SEO, LocalBusiness schema, global chrome
   components/
-    Icon.astro          the seven service icons + phone, inline SVG, final
+    Icon.astro          the six service icons + phone, inline SVG, final
     Photo.astro         photo slot: real image if present, captioned placeholder if not
     GasSafeMark.astro   Gas Safe logo slot
+    TopBar.astro        slim bar above the header: hours, Gas Safe, rating
+    Map.astro           Google Maps embed, pinned on central London
     Header.astro        sticky header + mobile drawer
     FormShell.astro     endpoint, honeypot, status + success states
   scripts/forms.ts      validation and submit handling
@@ -148,7 +150,7 @@ Everything below is marked with a `TODO` in the source.
   site rather than shipped; the register was searched three ways on 16 September
   2026 without a match (see `CREDITS.md`). Every place that would print it now
   reads plain "Gas Safe registered". Set the real number in `src/data/site.ts`
-  and it returns to the emergency bar, trust strip, mobile drawer, footer and
+  and it returns to the top bar, trust strip, mobile drawer, footer and
   terms page at once.
 - **The Gas Safe mark itself is in and rendering** — `public/gas-safe.svg`, a
   vector trace of the official artwork from Gas Safe Register's own asset host.
@@ -190,6 +192,14 @@ Everything below is marked with a `TODO` in the source.
   Profile must be switched to "service area" for the listing to match the site.
 
 ## Decisions worth knowing
+
+- **No emergency call-out anywhere on the site.** The business does not offer it,
+  so it is not advertised: the seventh service was removed (six remain), the top
+  bar now shows opening hours instead of a 24/7 line, the "60 min average
+  emergency arrival" stat is gone, the "Are you really available 24/7?" FAQ was
+  replaced with an opening-hours one, and the out-of-hours rate clause was taken
+  out of Terms. The phone is labelled plainly as "Call us", with the hours beside
+  it. The `emergency` service icon and photo were deleted with the service.
 
 - **No prices anywhere.** The client quotes on survey only; the boiler FAQ answers
   the cost question by describing the survey-and-fixed-quote process instead.

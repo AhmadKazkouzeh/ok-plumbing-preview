@@ -78,7 +78,7 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
       Need us sooner? Call
       <a href={`tel:${BUSINESS.mobile.tel}`} data-track="call" class="font-extrabold"
         >{BUSINESS.mobile.display}</a
-      > — answered 24 hours.
+      > — {BUSINESS.hours.weekday}, {BUSINESS.hours.saturday}.
     </p>
   </div>
 </form>

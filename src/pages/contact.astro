@@ -13,12 +13,12 @@ const NEEDS = [
   'Bathroom',
   'Air conditioning',
 ];
-const WHEN = ['Emergency', 'Within a week', 'Just quoting'];
+const WHEN = ['As soon as possible', 'Within a week', 'Just quoting'];
 ---
 
 <Base
-  title="Contact & Book an Engineer | 24/7 London | OK Plumbing"
-  description="Book a Gas Safe engineer in London. 24/7 emergency line on 07444 419144, office on 020 8811 2551, or send the form and we reply within one business day."
+  title="Contact & Book an Engineer in London | OK Plumbing"
+  description="Book a Gas Safe engineer in London. Call 07444 419144 or the office on 020 8811 2551, or send the form and we reply within one business day."
 >
   <section class="bg-tint px-6 pt-[clamp(40px,5vw,56px)] pb-[clamp(52px,6vw,72px)]">
     <div class="mx-auto max-w-[1240px]">
@@ -26,8 +26,8 @@ const WHEN = ['Emergency', 'Within a week', 'Just quoting'];
         <p class="eyebrow mb-3.5 font-extrabold">Contact</p>
         <h1 class="h1 mb-4" style="font-size:clamp(34px,4.6vw,52px)">Book an engineer</h1>
         <p class="lede m-0 text-body" style="font-size:clamp(16px,1.4vw,18px)">
-          Emergencies are always faster by phone. For quotes, surveys and anything that can wait
-          until morning, the form is the easiest route — we reply within one business day.
+          A call is always the quickest way to get booked in. For quotes, surveys and anything
+          that can wait, the form is the easiest route — we reply within one business day.
         </p>
       </div>
 
@@ -179,7 +179,7 @@ const WHEN = ['Emergency', 'Within a week', 'Just quoting'];
             </span>
             <span class="block">
               <span class="block text-[11px] font-extrabold tracking-[.09em] uppercase text-tint/60">
-                24/7 emergency line
+                Call us
               </span>
               <span class="block text-2xl font-extrabold tracking-[-.02em]">
                 {BUSINESS.mobile.display}
@@ -212,7 +212,7 @@ const WHEN = ['Emergency', 'Within a week', 'Just quoting'];
               <h2 class="eyebrow m-0 mb-1.5 font-extrabold">Hours</h2>
               <p class="m-0 text-[15px] leading-[1.6] font-semibold">
                 {BUSINESS.hours.weekday} · {BUSINESS.hours.saturday}<br />
-                {BUSINESS.hours.emergency}
+                <span class="font-medium text-cardtext">{BUSINESS.hours.closed}</span>
               </p>
             </div>
           </div>

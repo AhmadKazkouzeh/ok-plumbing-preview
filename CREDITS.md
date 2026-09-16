@@ -16,10 +16,9 @@ Replacing one is a single step: drop a new file over the matching name in
 | `service-boiler.webp` | Services row 01 (16:10) | `photo-1676210134190-3f2c0d5cf58d` |
 | `service-heating.webp` | Services row 02 (16:10) | `photo-1669725341213-7379ff6c90d5` |
 | `service-plumbing.webp` | Services row 03 (16:10) | `photo-1676210133055-eab6ef033ce3` |
-| `service-emergency.webp` | Services row 04 (16:10) | `photo-1679030416137-fe95cb599077` |
-| `service-maintenance.webp` | Services row 05 (16:10) | `photo-1700727448575-6f1680cd7d75` |
-| `service-bathroom.webp` | Services row 06 (16:10) | `photo-1584622650111-993a426fbf0a` |
-| `service-aircon.webp` | Services row 07 (16:10) | `photo-1761330440311-16e160cad236` — re-cropped 16 Sept 2026; the first crop cut the top off the wall unit |
+| `service-maintenance.webp` | Services row 04 (16:10) | `photo-1700727448575-6f1680cd7d75` |
+| `service-bathroom.webp` | Services row 05 (16:10) | `photo-1584622650111-993a426fbf0a` |
+| `service-aircon.webp` | Services row 06 (16:10) | `photo-1761330440311-16e160cad236` — re-cropped 16 Sept 2026; the first crop cut the top off the wall unit |
 | `boiler-hero.webp` | Boilers page hero (4:3) | `photo-1749532125405-70950966b0e5` |
 | `about-team.webp` | About — "How we work" (4:3) | `photo-1787672358313-4534ed75f53e` |
 
@@ -173,6 +172,6 @@ The definitive routes are the Gas Safe business portal dashboard, or
 register@gassaferegister.co.uk, who confirm a business's status on request.
 
 While `gasSafeNumber` is `null` every place that would print it degrades to a
-plain "Gas Safe registered" — emergency bar, trust strip, mobile drawer, footer
+plain "Gas Safe registered" — top bar, trust strip, mobile drawer, footer
 and terms page. Set the real number in `src/data/site.ts` and all five come back
 at once.

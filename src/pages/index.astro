@@ -29,7 +29,7 @@ const faqSchema = {
 
 <Base
   title="Gas Safe Plumbers & Heating Engineers | OK Plumbing London"
-  description="Gas Safe plumbers and heating engineers across all 32 London boroughs. Boilers, heating, bathrooms and a real 24/7 emergency line. Free quotes, fixed prices."
+  description="Gas Safe plumbers and heating engineers across all 32 London boroughs. Boilers, heating, plumbing repairs, bathrooms and air conditioning. Free fixed quotes."
   schema={faqSchema}
 >
   <!-- Hero ------------------------------------------------------------- -->
@@ -52,14 +52,14 @@ const faqSchema = {
 
         <p class="lede mb-8 max-w-[50ch] text-muted">
           Gas Safe registered engineers covering every London borough. Boilers, heating,
-          bathrooms and air conditioning — plus a genuine 24/7 emergency line answered by the
-          engineer on call.
+          plumbing repairs, bathrooms and air conditioning — quoted in writing before any
+          work starts.
         </p>
 
         <div class="mb-10 flex flex-wrap gap-3">
           <a href={CONTACT_ROUTE} class="btn btn-primary">Get a free quote</a>
           <a href={`tel:${BUSINESS.mobile.tel}`} data-track="call" class="btn btn-outline">
-            Emergency: {BUSINESS.mobile.display}
+            Call {BUSINESS.mobile.display}
           </a>
         </div>
 
@@ -74,8 +74,8 @@ const faqSchema = {
             <dt class="text-[12.5px] font-semibold text-meta">Years established</dt>
           </div>
           <div>
-            <dd class="m-0 text-[28px] font-extrabold tracking-[-.03em]">60 min</dd>
-            <dt class="text-[12.5px] font-semibold text-meta">Average emergency arrival</dt>
+            <dd class="m-0 text-[28px] font-extrabold tracking-[-.03em]">{SERVICES.length}</dd>
+            <dt class="text-[12.5px] font-semibold text-meta">Services under one team</dt>
           </div>
           <div>
             <dd class="m-0 text-[28px] font-extrabold tracking-[-.03em]">
@@ -137,7 +137,7 @@ const faqSchema = {
       <div class="mb-11 flex flex-wrap items-end justify-between gap-6">
         <div class="max-w-[620px]">
           <p class="eyebrow mb-3.5">What we do</p>
-          <h2 class="h2-grid">Seven services, one team you can call back</h2>
+          <h2 class="h2-grid">Six services, one team you can call back</h2>
         </div>
         <p class="m-0 max-w-[34ch] text-[15px] leading-relaxed font-medium text-cardtext">
           Domestic and commercial work across London. Fixed quotes before we start, and no
@@ -147,45 +147,21 @@ const faqSchema = {
 
       <ul class="autogrid m-0 list-none gap-5 p-0" style="--min:290px">
         {
-          SERVICES.map((s) =>
-            s.icon === 'emergency' ? (
-              <li class="on-dark card-lift-dark flex flex-col gap-3.5 rounded-card bg-ink px-7 pt-[30px] pb-[26px] text-tint">
-                <div class="flex items-center justify-between">
-                  <span class="flex size-[46px] items-center justify-center rounded-tile bg-orange text-ink">
-                    <Icon name={s.icon} />
-                  </span>
-                  <span class="text-[11px] font-extrabold tracking-[.08em] uppercase text-orange">
-                    24/7
-                  </span>
-                </div>
-                <h3 class="m-0 text-[22px] font-extrabold tracking-[-.02em]">{s.name}</h3>
-                <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-tint/75">{s.cardBody}</p>
-                <a
-                  href={`tel:${BUSINESS.mobile.tel}`}
-                  data-track="call"
-                  class="mt-auto text-[13.5px] font-extrabold text-cyan hover:text-cyan"
-                >
-                  Call {BUSINESS.mobile.display} →
-                </a>
-              </li>
-            ) : (
-              <li class="card-lift flex flex-col gap-3.5 rounded-card border border-ink/8 bg-tint px-7 pt-[30px] pb-[26px]">
-                <div class="flex items-center justify-between">
-                  <span class="flex size-[46px] items-center justify-center rounded-tile bg-pale text-blue">
-                    <Icon name={s.icon} />
-                  </span>
-                  <span class="text-xs font-bold text-cardnum">{s.number}</span>
-                </div>
-                <h3 class="m-0 text-[22px] font-extrabold tracking-[-.02em]">{s.name}</h3>
-                <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-cardtext">
-                  {s.cardBody}
-                </p>
-                <a href={s.href} class="mt-auto text-[13.5px] font-extrabold text-blue">
-                  {s.linkLabel} →
-                </a>
-              </li>
-            )
-          )
+          SERVICES.map((s) => (
+            <li class="card-lift flex flex-col gap-3.5 rounded-card border border-ink/8 bg-tint px-7 pt-[30px] pb-[26px]">
+              <div class="flex items-center justify-between">
+                <span class="flex size-[46px] items-center justify-center rounded-tile bg-pale text-blue">
+                  <Icon name={s.icon} />
+                </span>
+                <span class="text-xs font-bold text-cardnum">{s.number}</span>
+              </div>
+              <h3 class="m-0 text-[22px] font-extrabold tracking-[-.02em]">{s.name}</h3>
+              <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-cardtext">{s.cardBody}</p>
+              <a href={s.href} class="mt-auto text-[13.5px] font-extrabold text-blue">
+                {s.linkLabel} →
+              </a>
+            </li>
+          ))
         }
 
         <li class="flex flex-col gap-3 rounded-card bg-blue px-7 pt-[30px] pb-[26px] text-white">
@@ -331,8 +307,8 @@ const faqSchema = {
         <p class="eyebrow mb-3.5">Where we work</p>
         <h2 class="h2 mb-[18px]">{BUSINESS.coverage}</h2>
         <p class="prose-body m-0 mb-[26px] max-w-[46ch]">
-          West and Central London get the fastest emergency response, usually
-          within the hour.
+          West and Central London are on our doorstep, and we cover every other borough
+          from there.
         </p>
         <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
           {

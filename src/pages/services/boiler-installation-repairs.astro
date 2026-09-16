@@ -75,7 +75,7 @@ const breadcrumbSchema = {
               class="btn btn-outline-dark"
               style="padding:16px 26px"
             >
-              Boiler emergency? Call now
+              Call {BUSINESS.mobile.display}
             </a>
           </div>
         </div>
@@ -190,7 +190,7 @@ const breadcrumbSchema = {
         >
           Or call <a href={`tel:${BUSINESS.mobile.tel}`} data-track="call" class="font-extrabold"
             >{BUSINESS.mobile.display}</a
-          > — 24 hours, including bank holidays.
+          > — {BUSINESS.hours.weekday}, {BUSINESS.hours.saturday}.
         </p>
       </aside>
     </div>
