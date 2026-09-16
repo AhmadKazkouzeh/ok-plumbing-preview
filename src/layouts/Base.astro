@@ -76,10 +76,12 @@ const localBusiness = {
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Plumbing and heating services',
-    itemListElement: SERVICES.map((s) => ({
-      '@type': 'Offer',
-      itemOffered: { '@type': 'Service', name: s.name },
-    })),
+    itemListElement: SERVICES.flatMap((s) =>
+      [...s.domestic, ...s.commercial, ...(s.specialised ?? [])].map((item) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: item.name, category: s.name },
+      }))
+    ),
   },
   // Emitted only once a real Google review count is set in src/data/site.ts.
   ...(BUSINESS.rating.count

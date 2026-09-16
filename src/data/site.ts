@@ -74,17 +74,38 @@ export type IconName =
   | 'bathroom'
   | 'aircon';
 
-export interface Service {
-  /** 01–07, as printed on the cards and service rows. */
+/**
+ * One job we do. `note` is for anything a customer should know before calling —
+ * used sparingly, because a list of caveats reads as hedging.
+ */
+export interface ServiceItem {
+  name: string;
+  note?: string;
+}
+
+/**
+ * A service category. Each renders a card on the home page and its own page at
+ * `href`, which lists the work split domestic / commercial, plus any specialised
+ * jobs that people search for by name.
+ */
+export interface ServiceCategory {
   number: string;
   name: string;
+  /** Short name for nav and breadcrumbs. */
+  shortName: string;
   icon: IconName;
-  /** Short copy used on the home page card grid. */
-  cardBody: string;
-  /** Long copy used on the /services rows. */
-  rowBody: string;
   href: string;
-  linkLabel: string;
+  /** Home page card copy. */
+  cardBody: string;
+  /** Category page lede. */
+  intro: string;
+  /** SEO title and description for the category page. */
+  title: string;
+  description: string;
+  domestic: ServiceItem[];
+  commercial: ServiceItem[];
+  /** Named jobs people search for directly. */
+  specialised?: ServiceItem[];
   photoCaption: string;
   /** Slug for the drop-in photo under src/assets/photos. */
   photoSlug: string;
@@ -92,94 +113,266 @@ export interface Service {
   photoAlt: string;
 }
 
-export const SERVICES: Service[] = [
+/*
+ * TODO — three items below need a certificate confirmed before launch. They are
+ * marked with `note` so nothing silently over-claims:
+ *   1. AC servicing, repairs and refrigerant work  -> F-Gas (C&G 2079 or equiv.)
+ *   2. Commercial gas and catering appliances      -> CODNCO1 / COMCAT
+ *   3. Unvented hot water cylinders                -> G3
+ * Confirm, then delete the note. If any is not held, delete the item instead.
+ */
+
+export const SERVICES: ServiceCategory[] = [
   {
     number: '01',
-    name: 'Boiler Installation & Repairs',
+    name: 'Boilers & Heating',
+    shortName: 'Heating',
     icon: 'boiler',
+    href: '/services/heating/',
     cardBody:
-      'Combi, system and conventional boilers supplied, swapped and serviced. Up to 10-year manufacturer warranty on new installs.',
-    rowBody:
-      'Combi, system and conventional boilers from Worcester Bosch, Vaillant, Ideal, Baxi and Glow-worm. Full replacements, breakdown repairs, annual services and landlord certificates. Most swaps are finished in a day with up to 10 years of manufacturer warranty registered before we leave.',
-    href: '/services/boiler-installation-repairs/',
-    linkLabel: 'See boiler services',
+      'Boilers fitted, repaired and serviced, full central heating systems, underfloor heating and smart controls.',
+    intro:
+      'From a boiler that will not fire to a whole system designed from scratch. Every gas job is done by a Gas Safe registered engineer, quoted in writing first.',
+    title: 'Boiler & Central Heating Engineers in London | OK Plumbing',
+    description:
+      'Gas Safe boiler installation, repair and servicing across London. Central heating systems, radiators, underfloor heating, power flushing and smart controls.',
+    domestic: [
+      { name: 'Boiler installation and replacement' },
+      { name: 'Boiler breakdown repairs' },
+      { name: 'Annual boiler servicing, any make' },
+      { name: 'Central heating system design and installation' },
+      { name: 'Central heating servicing and repairs' },
+      { name: 'Radiator installation, replacement and additions' },
+      { name: 'Radiator balancing' },
+      { name: 'Heated towel rails' },
+      { name: 'Underfloor heating installation' },
+      { name: 'Thermostats and smart heating controls' },
+      { name: 'Thermostatic radiator valves' },
+      { name: 'Power flushing' },
+      { name: 'Heating pipework repairs' },
+      { name: 'Hot water cylinder installation and repair', note: 'unvented cylinders — G3 to confirm' },
+      { name: 'Pressure and circulation fault diagnosis' },
+    ],
+    commercial: [
+      { name: 'Commercial boiler installation and replacement', note: 'commercial gas tickets to confirm' },
+      { name: 'Commercial boiler servicing and repair', note: 'commercial gas tickets to confirm' },
+      { name: 'Heating pipework for larger premises' },
+      { name: 'System pressure testing and balancing' },
+      { name: 'Commercial hot water cylinders and tanks' },
+      { name: 'Heating controls and thermostats' },
+      { name: 'Planned maintenance contracts' },
+    ],
+    specialised: [
+      {
+        name: 'Central heating survey',
+        note: 'a standard homebuyer survey does not assess the heating system — this one does',
+      },
+      { name: 'Power flush' },
+      { name: 'Underfloor heating' },
+    ],
     photoCaption: 'photo — new combi installed',
     photoSlug: 'service-boiler',
     photoAlt: 'A heating engineer working on pipework in a home',
   },
   {
     number: '02',
-    name: 'Central Heating Systems',
-    icon: 'heating',
-    cardBody:
-      'Full system design and installation, radiator upgrades, powerflushing and smart controls for cold rooms and high bills.',
-    rowBody:
-      'New system design and installation, radiator replacement and additions, thermostatic valves, powerflushing and smart control fitting. If rooms are cold or bills have crept up, we test the system first and tell you what will actually change it.',
-    href: '/services/',
-    linkLabel: 'More detail',
-    photoCaption: 'photo — radiator & smart thermostat',
-    photoSlug: 'service-heating',
-    photoAlt: 'A panel radiator fitted beneath a window',
-  },
-  {
-    number: '03',
-    name: 'Plumbing Repairs',
+    name: 'Plumbing',
+    shortName: 'Plumbing',
     icon: 'plumbing',
+    href: '/services/plumbing/',
     cardBody:
-      'Leaks, burst pipes, blockages, dripping taps, failed cylinders and toilet repairs — traced, fixed and tested the same visit.',
-    rowBody:
-      'Leaks traced without taking a wall apart where we can, burst pipes, blocked sinks and drains, dripping taps, failed cylinders, toilets and overflows. Most jobs are diagnosed and fixed on the first visit and tested with you before we pack up.',
-    href: '/services/',
-    linkLabel: 'More detail',
+      'Leaks, burst pipes and blockages fixed, and taps, showers, toilets, pumps and appliances fitted properly first time.',
+    intro:
+      'The everyday work, done properly. Most jobs are diagnosed and fixed on the first visit and tested with you before we pack up.',
+    title: 'Plumbers in London | Repairs & Installation | OK Plumbing',
+    description:
+      'London plumbers for leaks, burst pipes, blockages and repairs, plus taps, showers, toilets, pumps, water softeners and appliance installation. Fixed written quotes.',
+    domestic: [
+      { name: 'Leaks traced and repaired' },
+      { name: 'Burst pipes' },
+      { name: 'Blocked sinks, basins and internal drains' },
+      { name: 'Main drain and sewer line clearance' },
+      { name: 'Dripping taps and worn washers' },
+      { name: 'Toilet repairs and flush mechanisms' },
+      { name: 'Overflows' },
+      { name: 'Fitting taps, sinks, basins and toilets' },
+      { name: 'Shower installation and repairs' },
+      { name: 'Shower valve and cartridge replacement' },
+      { name: 'Shower and mains boosting pumps' },
+      { name: 'Appliance installation — washing machines, dishwashers, plumbed fridges' },
+      { name: 'Water softeners and filtration' },
+      { name: 'Water meter installation and repair' },
+      { name: 'Stopcock and isolation valve replacement' },
+      { name: 'Homebuyer plumbing survey' },
+      { name: 'Planned and reactive maintenance' },
+    ],
+    commercial: [
+      { name: 'Commercial kitchen plumbing installation' },
+      { name: 'Grease trap installation and maintenance' },
+      { name: 'Backflow prevention testing and installation' },
+      { name: 'Industrial sinks and basins' },
+      { name: 'Commercial-grade toilets and washrooms' },
+      { name: 'Water pressure testing and balancing' },
+      { name: 'Main drain and sewer clearance' },
+      { name: 'Commercial and domestic fit-outs' },
+      { name: 'Planned maintenance contracts' },
+    ],
+    specialised: [
+      { name: 'Water conditioning and limescale treatment' },
+      { name: 'Boiling, chilled and filtered taps' },
+      { name: 'Food waste disposal units' },
+    ],
     photoCaption: 'photo — pipework repair under sink',
     photoSlug: 'service-plumbing',
     photoAlt: 'A plumber repairing pipework under a basin',
   },
   {
-    number: '04',
-    name: 'System Maintenance',
-    icon: 'maintenance',
+    number: '03',
+    name: 'Leak Detection',
+    shortName: 'Leak detection',
+    icon: 'heating',
+    href: '/services/leak-detection/',
     cardBody:
-      'Annual boiler services, landlord gas safety certificates and planned maintenance contracts that keep warranties valid.',
-    rowBody:
-      'Annual boiler services on any make, CP12 landlord gas safety certificates issued on the day, and planned maintenance contracts for landlords and agents with scheduled renewals and one consolidated invoice.',
-    href: '/services/',
-    linkLabel: 'More detail',
+      'Hidden leaks found without taking the house apart — thermal imaging, acoustic tracing and tracer gas, then the repair.',
+    intro:
+      'A leak you cannot see is the expensive kind. We locate it first and open up only where we have to, then repair it and tell you what caused it.',
+    title: 'Leak Detection in London | Non-Invasive | OK Plumbing',
+    description:
+      'Non-invasive leak detection across London — thermal imaging, acoustic tracing and tracer gas for water, gas and drain leaks. Located, repaired and reported.',
+    domestic: [
+      { name: 'Water leak detection' },
+      { name: 'Gas leak detection' },
+      { name: 'Drain and sewer leak detection' },
+      { name: 'Hidden leaks in walls, floors and ceilings' },
+      { name: 'Underground pipe leaks' },
+      { name: 'Central heating leak detection' },
+      { name: 'Moisture and damp assessment' },
+      { name: 'Pressure testing and diagnostics' },
+      { name: 'Targeted repair with minimal disruption' },
+      { name: 'Written findings and recommendations' },
+    ],
+    commercial: [
+      { name: 'Concealed leaks in commercial buildings' },
+      { name: 'Leak detection in large plumbing and heating systems' },
+      { name: 'Underground pipe leak detection' },
+      { name: 'Moisture mapping and damp investigation' },
+      { name: 'System pressure testing and diagnostics' },
+      { name: 'Preventative inspections' },
+    ],
+    specialised: [
+      { name: 'Thermal imaging' },
+      { name: 'Acoustic leak tracing' },
+      { name: 'Tracer gas' },
+    ],
+    photoCaption: 'photo — engineer tracing a leak, thermal camera or acoustic kit',
+    photoSlug: 'service-leak-detection',
+    photoAlt: 'An engineer locating a concealed leak',
+  },
+  {
+    number: '04',
+    name: 'Gas Safety',
+    shortName: 'Gas safety',
+    icon: 'maintenance',
+    href: '/services/gas-safety/',
+    cardBody:
+      'Landlord CP12 certificates, annual safety checks, gas appliance installation and carbon monoxide alarms.',
+    intro:
+      'Gas is the part of this job where paperwork and competence matter most. Certificates are issued on the day and emailed the same evening.',
+    title: 'Gas Safety Checks & CP12 Certificates in London | OK Plumbing',
+    description:
+      'Gas Safe registered engineers in London for CP12 landlord certificates, annual gas safety checks, gas appliance installation and carbon monoxide alarms.',
+    domestic: [
+      { name: 'CP12 landlord gas safety certificates' },
+      { name: 'Annual gas safety checks' },
+      { name: 'Gas appliance installation — cookers, hobs and fires' },
+      { name: 'Gas appliance servicing and repair' },
+      { name: 'Gas detector and carbon monoxide alarm installation' },
+      { name: 'Gas meter box replacement' },
+      { name: 'Safe connection and commissioning of gas systems' },
+      { name: 'Gas pipework installation and alteration' },
+    ],
+    commercial: [
+      { name: 'Commercial gas safety certification', note: 'commercial gas tickets to confirm' },
+      { name: 'Commercial gas appliance installation and testing', note: 'COMCAT to confirm' },
+      { name: 'Catering appliance installation and safety testing', note: 'COMCAT to confirm' },
+      { name: 'Planned maintenance contracts for landlords and agents' },
+      { name: 'Portfolio CP12 renewals on one invoice' },
+    ],
     photoCaption: 'photo — service check & paperwork',
     photoSlug: 'service-maintenance',
     photoAlt: 'An engineer completing a checklist on a clipboard',
   },
   {
     number: '05',
-    name: 'Bathroom Installations',
+    name: 'Bathrooms & Kitchens',
+    shortName: 'Bathrooms',
     icon: 'bathroom',
+    href: '/services/bathrooms-kitchens/',
     cardBody:
-      'Full bathroom fit-outs, wet rooms and cloakrooms — first fix to final seal, coordinated with tiling and electrics.',
-    rowBody:
-      'Full bathroom fit-outs, wet rooms, en-suites and cloakrooms. We handle first fix to final seal and coordinate tiling and electrics, so one team is accountable for the whole room.',
-    href: '/services/',
-    linkLabel: 'More detail',
+      'Full bathroom and kitchen fit-outs, wet rooms and cloakrooms — first fix to final seal, one team accountable.',
+    intro:
+      'We handle the whole room rather than the plumbing alone, and coordinate tiling and electrics so there is one team answerable for the finish.',
+    title: 'Bathroom & Kitchen Installation in London | OK Plumbing',
+    description:
+      'Full bathroom and kitchen installations across London — wet rooms, en-suites and cloakrooms, first fix to final seal, with tiling and electrics coordinated.',
+    domestic: [
+      { name: 'Full bathroom installation' },
+      { name: 'Wet rooms' },
+      { name: 'En-suites and cloakrooms' },
+      { name: 'Kitchen plumbing installation' },
+      { name: 'Kitchen appliance plumbing' },
+      { name: 'Sanitaryware and brassware fitting' },
+      { name: 'Shower enclosures and trays' },
+      { name: 'First fix to final seal' },
+      { name: 'Tiling and electrics coordinated' },
+    ],
+    commercial: [
+      { name: 'Washroom installation and refurbishment' },
+      { name: 'Commercial kitchen fit-outs' },
+      { name: 'Multi-unit and portfolio refurbishment' },
+    ],
     photoCaption: 'photo — finished bathroom',
     photoSlug: 'service-bathroom',
     photoAlt: 'A finished modern bathroom with a walk-in shower',
   },
   {
     number: '06',
-    name: 'Air Conditioning Installation',
+    name: 'Air Conditioning',
+    shortName: 'Air conditioning',
     icon: 'aircon',
+    href: '/services/air-conditioning/',
     cardBody:
-      'Split and multi-split systems for homes and offices, plus ducted installations. Free site survey before we quote.',
-    rowBody:
-      'Split and multi-split systems for homes and offices, plus ducted installations where the layout suits it. We survey the property free of charge, size the units properly and quote a fixed price for the install.',
-    href: '/services/',
-    linkLabel: 'More detail',
+      'Split, multi-split and ducted systems installed, serviced and repaired for homes and offices. Free survey first.',
+    intro:
+      'We survey the property free of charge, size the units properly and quote a fixed price — then keep the system running afterwards.',
+    title: 'Air Conditioning Installation & Servicing in London | OK Plumbing',
+    description:
+      'Air conditioning across London — split, multi-split and ducted installation for homes and offices, plus servicing, repairs and efficiency checks. Free survey.',
+    domestic: [
+      { name: 'Split and multi-split installation' },
+      { name: 'Ducted system installation' },
+      { name: 'System replacement and upgrades' },
+      { name: 'Servicing and planned maintenance', note: 'F-Gas certification to confirm' },
+      { name: 'Fault diagnosis and repair', note: 'F-Gas certification to confirm' },
+      { name: 'Refrigerant and operational checks', note: 'F-Gas certification to confirm' },
+      { name: 'Airflow cleaning and efficiency optimisation' },
+      { name: 'Smart thermostat and climate control integration' },
+      { name: 'Free site survey and fixed quote' },
+    ],
+    commercial: [
+      { name: 'Office and retail installation' },
+      { name: 'Multi-zone systems for larger buildings' },
+      { name: 'Planned preventative maintenance' },
+      { name: 'Fault diagnosis and repair', note: 'F-Gas certification to confirm' },
+      { name: 'Energy-efficiency upgrades' },
+      { name: 'Climate control and smart system integration' },
+    ],
     photoCaption: 'photo — wall unit install, living room',
     photoSlug: 'service-aircon',
     photoAlt: 'A wall-mounted air conditioning unit in a home',
   },
 ];
 
-/** Air conditioning scope — split/multi-split and ducted only. No servicing, regas or heat pumps. */
 export const AIRCON_CHIPS = [
   'Split & multi-split',
   'Ducted systems',
@@ -403,14 +596,10 @@ export const BOILER_JOBS = [
   },
 ] as const;
 
-export const FOOTER_SERVICE_LINKS = [
-  { label: 'Boiler installation', href: '/services/boiler-installation-repairs/' },
-  { label: 'Central heating', href: '/services/' },
-  { label: 'Plumbing repairs', href: '/services/' },
-  { label: 'Servicing', href: '/services/' },
-  { label: 'Bathrooms', href: '/services/' },
-  { label: 'Air conditioning', href: '/services/' },
-] as const;
+export const FOOTER_SERVICE_LINKS = SERVICES.map((s) => ({
+  label: s.name,
+  href: s.href,
+}));
 
 export const FOOTER_COMPANY_LINKS = [
   { label: 'About us', href: '/about/' },

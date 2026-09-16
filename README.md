@@ -4,17 +4,28 @@ Static marketing site for OK Plumbing and Heating, built with **Astro**,
 **TypeScript** and **Tailwind CSS v4** from the approved design handoff. Replaces
 the existing WordPress site at okplumbing.co.uk.
 
-Five real routes, server-rendered at build time, no client-side page switching:
+Routes, server-rendered at build time, no client-side page switching:
 
 | Route | Page |
 | --- | --- |
 | `/` | Home |
-| `/services` | Services |
-| `/services/boiler-installation-repairs` | Boilers |
+| `/services` | Services overview |
+| `/services/heating` | Boilers & Heating |
+| `/services/plumbing` | Plumbing |
+| `/services/leak-detection` | Leak Detection |
+| `/services/gas-safety` | Gas Safety |
+| `/services/bathrooms-kitchens` | Bathrooms & Kitchens |
+| `/services/air-conditioning` | Air Conditioning |
+| `/services/boiler-installation-repairs` | Boilers, detail page |
 | `/about` | About |
 | `/contact` | Contact |
 
 Plus `/privacy`, `/terms` and a `404`.
+
+The six category pages are generated from one route, `src/pages/services/[category].astro`,
+off `SERVICES` in `src/data/site.ts`. Adding a category there gives you the page,
+the home card, the footer link, the breadcrumb and the structured-data entries —
+no new files.
 
 ## Running it
 
@@ -128,6 +139,7 @@ src/
   layouts/Base.astro    <head>, SEO, LocalBusiness schema, global chrome
   components/
     Icon.astro          the six service icons + phone, inline SVG, final
+    ServiceList.astro   a titled list of jobs inside a category
     Photo.astro         photo slot: real image if present, captioned placeholder if not
     GasSafeMark.astro   Gas Safe logo slot
     TopBar.astro        slim bar above the header: hours, Gas Safe, rating
@@ -137,7 +149,7 @@ src/
   scripts/forms.ts      validation and submit handling
   styles/global.css     design tokens mapped into Tailwind's theme
   assets/photos/        drop-in photography (see CREDITS.md)
-  pages/                the five routes
+  pages/                routes, incl. services/[category].astro
 tests/                  browser test suite (see tests/README.md)
 ```
 

@@ -1,94 +1,63 @@
 ---
 import Base from '~/layouts/Base.astro';
 import PageHeader from '~/components/PageHeader.astro';
+import Icon from '~/components/Icon.astro';
 import Photo from '~/components/Photo.astro';
-import { AIRCON_CHIPS, BUSINESS, CONTACT_ROUTE, SERVICES } from '~/data/site';
+import { CONTACT_ROUTE, SERVICES } from '~/data/site';
+
+const itemCount = SERVICES.reduce(
+  (n, s) => n + s.domestic.length + s.commercial.length + (s.specialised?.length ?? 0),
+  0
+);
 ---
 
 <Base
-  title="Our Services | Plumbing, Heating & Boilers | OK Plumbing"
-  description="Six services across London: boilers, central heating, plumbing repairs, servicing and CP12s, bathroom installations and air conditioning installation."
+  title="Our Services | Plumbing, Heating & Gas | OK Plumbing"
+  description="Six service areas across London: boilers and heating, plumbing, leak detection, gas safety, bathrooms and kitchens, and air conditioning. Free fixed quotes."
 >
   <PageHeader
     crumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
     title="Everything we do, in one place"
     titleClass="max-w-[20ch]"
-    intro="Six services across domestic and commercial property in Greater London. Free quotes, fixed written prices and Gas Safe registered engineers on every gas job."
+    intro={`Six service areas and ${itemCount} jobs across domestic and commercial property in Greater London. Free quotes, fixed written prices and Gas Safe registered engineers on every gas job.`}
   />
 
   <section class="section-sm bg-white px-6">
-    <ul class="mx-auto grid max-w-[1240px] list-none gap-[18px] p-0">
+    <ul class="autogrid mx-auto m-0 max-w-[1240px] list-none gap-5 p-0" style="--min:300px">
       {
-        SERVICES.map((s) => {
-          const isAircon = s.icon === 'aircon';
-          return (
-            <li
-              class:list={[
-                'autogrid items-center gap-7 rounded-panel p-[clamp(24px,3vw,34px)]',
-                isAircon && 'border border-blue/20 bg-pale',
-                !isAircon && 'border border-ink/10',
-              ]}
-              style="--min:280px"
-            >
-              <div>
-                <p class="mb-3.5 flex items-center gap-3">
-                  <span
-                    class:list={[
-                      'text-[11.5px] font-extrabold tracking-[.09em] uppercase text-blue',
-                    ]}
-                  >
-                    {s.number}
-                  </span>
-                  <span
-                    class:list={[
-                      'h-px flex-1',
-                      isAircon ? 'bg-blue/25' : 'bg-ink/12',
-                    ]}
-                    aria-hidden="true"
-                  />
-                </p>
-
-                <h2 class="h2-row mb-2.5">{s.name}</h2>
-
-                <p
-                  class:list={[
-                    'm-0 max-w-[60ch] text-[15.5px] leading-[1.65] font-medium text-body',
-                    (isAircon || s.number === '01') && 'mb-4',
-                  ]}
-                >
-                  {s.rowBody}
-                </p>
-
-                {s.number === '01' && (
-                  <a href={s.href} class="text-sm font-extrabold text-blue">
-                    Open the boiler page →
-                  </a>
-                )}
-
-                {isAircon && (
-                  <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
-                    {AIRCON_CHIPS.map((c) => (
-                      <li class="rounded-full bg-white px-3.5 py-2 text-[12.5px] font-bold">
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+        SERVICES.map((s) => (
+          <li class="card-lift flex flex-col overflow-hidden rounded-card border border-ink/9 bg-tint">
+            <Photo
+              slug={s.photoSlug}
+              caption={s.photoCaption}
+              alt={s.photoAlt}
+              ratio="16/10"
+              radius={0}
+              width={560}
+              sizes="(max-width: 860px) 100vw, 33vw"
+            />
+            <div class="flex flex-1 flex-col gap-3.5 px-7 pt-[26px] pb-[26px]">
+              <div class="flex items-center justify-between">
+                <span class="flex size-[46px] items-center justify-center rounded-tile bg-pale text-blue">
+                  <Icon name={s.icon} />
+                </span>
+                <span class="text-xs font-bold text-cardnum">{s.number}</span>
               </div>
 
-              <Photo
-                slug={s.photoSlug}
-                caption={s.photoCaption}
-                alt={s.photoAlt}
-                ratio="16/10"
-                radius={12}
-                tone={isAircon ? 'pale' : 'light'}
-                width={720}
-                sizes="(max-width: 860px) 100vw, 42vw"
-              />
-            </li>
-          );
-        })
+              <h2 class="m-0 text-[22px] font-extrabold tracking-[-.02em]">{s.name}</h2>
+
+              <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-cardtext">{s.cardBody}</p>
+
+              <p class="m-0 text-[13px] font-semibold text-meta">
+                {s.domestic.length + s.commercial.length + (s.specialised?.length ?? 0)} jobs listed
+              </p>
+
+              <a href={s.href} class="mt-auto text-[13.5px] font-extrabold text-blue">
+                See {s.shortName.toLowerCase()} →
+              </a>
+            </div>
+          </li>
+        ))
       }
     </ul>
   </section>
@@ -103,19 +72,7 @@ import { AIRCON_CHIPS, BUSINESS, CONTACT_ROUTE, SERVICES } from '~/data/site';
           Free quote, fixed price, no callout charge on quoted work.
         </p>
       </div>
-      <div class="flex flex-wrap gap-3">
-        <a href={CONTACT_ROUTE} class="btn btn-primary" style="padding:16px 26px">
-          Request a quote
-        </a>
-        <a
-          href={`tel:${BUSINESS.mobile.tel}`}
-          data-track="call"
-          class="btn btn-outline"
-          style="padding:16px 26px"
-        >
-          {BUSINESS.mobile.display}
-        </a>
-      </div>
+      <a href={CONTACT_ROUTE} class="btn btn-primary" style="padding:16px 28px">Get a free quote</a>
     </div>
   </section>
 </Base>
