@@ -2,7 +2,7 @@
 import Base from '~/layouts/Base.astro';
 import PageHeader from '~/components/PageHeader.astro';
 import Photo from '~/components/Photo.astro';
-import { BUSINESS, CONTACT_ROUTE, TEAM } from '~/data/site';
+import { BUSINESS, TEAM } from '~/data/site';
 ---
 
 <Base
@@ -58,6 +58,7 @@ import { BUSINESS, CONTACT_ROUTE, TEAM } from '~/data/site';
                 slug={member.photoSlug}
                 caption={`portrait — ${member.name}`}
                 alt={`${member.name}, ${member.role} at OK Plumbing and Heating`}
+                initials={member.name}
                 ratio="1/1"
                 radius={0}
                 width={420}
@@ -74,15 +75,6 @@ import { BUSINESS, CONTACT_ROUTE, TEAM } from '~/data/site';
           ))
         }
 
-        <li class="flex flex-col justify-center gap-2.5 rounded-card bg-blue p-6 text-white">
-          <p class="m-0 text-xl font-extrabold tracking-[-.02em]">Hiring</p>
-          <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-white">
-            We are always interested in hearing from Gas Safe registered engineers in London.
-          </p>
-          <a href={CONTACT_ROUTE} class="mt-auto text-sm font-extrabold text-white hover:text-white">
-            Get in touch →
-          </a>
-        </li>
       </ul>
     </div>
   </section>

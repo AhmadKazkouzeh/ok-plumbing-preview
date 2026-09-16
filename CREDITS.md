@@ -47,9 +47,13 @@ Any ID above resolves at `https://unsplash.com/photos/<id>` (strip the leading
 **Still empty, showing the captioned placeholder:**
 
 - Three team portraits — Sam, Yaz, Monica (`team-sam`, `team-yaz`, `team-monica`).
-  Deliberately left blank: putting stock faces on named staff would be a
-  misrepresentation.
-- Testimonial avatars on the home page (or drop them for initials).
+  These now show **initials avatars**, not the hatched placeholder, so the page
+  looks finished. Still no stock faces: putting a stranger's photograph next to a
+  real named person misrepresents who turns up. Drop a real photo into
+  `src/assets/photos/team-sam.webp` (or .jpg) and it takes over automatically.
+- Testimonial avatars — done, initials on a brand colour. These sit beside real
+  Google reviewers' names, so a stock face would be worse here than anywhere:
+  leave them as initials.
 - ~~Coverage map and contact map~~ — done. Both slots now use `Map.astro`, a
   Google Maps embed pinned on central London (see README).
 - ~~The official **Gas Safe Register** logo~~ — done, see "The Gas Safe Register

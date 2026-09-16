@@ -4,6 +4,7 @@ import Icon from '~/components/Icon.astro';
 import Photo from '~/components/Photo.astro';
 import Map from '~/components/Map.astro';
 import GasSafeMark from '~/components/GasSafeMark.astro';
+import Avatar from '~/components/Avatar.astro';
 import Stars from '~/components/Stars.astro';
 import {
   BOROUGH_CHIPS,
@@ -33,7 +34,7 @@ const faqSchema = {
   schema={faqSchema}
 >
   <!-- Hero ------------------------------------------------------------- -->
-  <section class="bg-tint px-6 pt-[clamp(44px,5vw,72px)] pb-[clamp(52px,6vw,80px)]">
+  <section class="bg-tint px-6 pt-[clamp(36px,4vw,56px)] pb-[clamp(40px,4.5vw,60px)]">
     <div
       class="autogrid mx-auto max-w-[1240px] items-center gap-[clamp(32px,4vw,56px)]"
       style="--min:340px"
@@ -90,10 +91,10 @@ const faqSchema = {
         slug="hero-engineer"
         caption="hero photo — engineer at a boiler, portrait crop"
         alt="A plumber tightening a valve on the pipework above a hot-water cylinder"
-        ratio="4/5"
+        ratio="1/1"
         bordered
         eager
-        width={760}
+        width={700}
         sizes="(max-width: 860px) 100vw, 44vw"
       />
     </div>
@@ -284,7 +285,7 @@ const faqSchema = {
                 {r.quote}
               </blockquote>
               <div class="flex items-center gap-3">
-                <span class="hatch-avatar size-[38px] shrink-0 rounded-full" aria-hidden="true" />
+                <Avatar name={r.name} size={38} />
                 <span class="block">
                   <span class="block text-sm font-bold">{r.name}</span>
                   <span class="block text-[12.5px] font-semibold text-tint/55">{r.meta}</span>
