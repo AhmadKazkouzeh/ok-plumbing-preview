@@ -1,0 +1,36 @@
+---
+import Base from '~/layouts/Base.astro';
+import { BUSINESS, NAV } from '~/data/site';
+---
+
+<Base
+  title="Page not found | OK Plumbing and Heating"
+  description="That page does not exist. Find our services, boiler page or contact details, or call the 24/7 line."
+>
+  <section class="section bg-tint px-6">
+    <div class="mx-auto max-w-[720px]">
+      <p class="eyebrow mb-3.5">404</p>
+      <h1 class="h1 mb-4">That page has moved or never existed</h1>
+      <p class="prose-body m-0 mb-8">
+        Try one of these instead, or call us on
+        <a href={`tel:${BUSINESS.mobile.tel}`} data-track="call" class="font-extrabold"
+          >{BUSINESS.mobile.display}</a
+        > — answered any hour.
+      </p>
+      <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+        {
+          NAV.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="block rounded-full border border-ink/12 bg-white px-[15px] py-[9px] text-[13px] font-bold text-ink hover:border-ink"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>

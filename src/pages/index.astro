@@ -1,0 +1,379 @@
+---
+import Base from '~/layouts/Base.astro';
+import Icon from '~/components/Icon.astro';
+import Photo from '~/components/Photo.astro';
+import Map from '~/components/Map.astro';
+import GasSafeMark from '~/components/GasSafeMark.astro';
+import Stars from '~/components/Stars.astro';
+import {
+  BOROUGH_CHIPS,
+  BUSINESS,
+  CONTACT_ROUTE,
+  FAQS,
+  PROMISES,
+  REVIEWS,
+  SERVICES,
+  STEPS,
+} from '~/data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Base
+  title="Gas Safe Plumbers & Heating Engineers | OK Plumbing London"
+  description="Gas Safe plumbers and heating engineers across all 32 London boroughs. Boilers, heating, bathrooms and a real 24/7 emergency line. Free quotes, fixed prices."
+  schema={faqSchema}
+>
+  <!-- Hero ------------------------------------------------------------- -->
+  <section class="bg-tint px-6 pt-[clamp(44px,5vw,72px)] pb-[clamp(52px,6vw,80px)]">
+    <div
+      class="autogrid mx-auto max-w-[1240px] items-center gap-[clamp(32px,4vw,56px)]"
+      style="--min:340px"
+    >
+      <div>
+        <p
+          class="mb-[26px] inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-white py-[7px] pr-[15px] pl-[7px] text-xs font-bold tracking-[.05em] uppercase text-body"
+        >
+          <span class="rounded-full bg-orange px-[9px] py-1 text-[11px] text-ink">
+            {BUSINESS.yearsLabel} years
+          </span>
+          Plumbing &amp; heating
+        </p>
+
+        <h1 class="h1-hero mb-[22px]">Boilers fitted, heating restored, leaks stopped.</h1>
+
+        <p class="lede mb-8 max-w-[50ch] text-muted">
+          Gas Safe registered engineers covering every London borough. Boilers, heating,
+          bathrooms and air conditioning — plus a genuine 24/7 emergency line answered by the
+          engineer on call.
+        </p>
+
+        <div class="mb-10 flex flex-wrap gap-3">
+          <a href={CONTACT_ROUTE} class="btn btn-primary">Get a free quote</a>
+          <a href={`tel:${BUSINESS.mobile.tel}`} data-track="call" class="btn btn-outline">
+            Emergency: {BUSINESS.mobile.display}
+          </a>
+        </div>
+
+        <dl
+          class="grid gap-[26px] border-t border-ink/12 pt-[26px]"
+          style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"
+        >
+          <div>
+            <dd class="m-0 text-[28px] font-extrabold tracking-[-.03em]">
+              {BUSINESS.yearsLabel}
+            </dd>
+            <dt class="text-[12.5px] font-semibold text-meta">Years established</dt>
+          </div>
+          <div>
+            <dd class="m-0 text-[28px] font-extrabold tracking-[-.03em]">60 min</dd>
+            <dt class="text-[12.5px] font-semibold text-meta">Average emergency arrival</dt>
+          </div>
+          <div>
+            <dd class="m-0 text-[28px] font-extrabold tracking-[-.03em]">
+              {BUSINESS.rating.value}★
+            </dd>
+            <dt class="text-[12.5px] font-semibold text-meta">Google reviews</dt>
+          </div>
+        </dl>
+      </div>
+
+      <Photo
+        slug="hero-engineer"
+        caption="hero photo — engineer at a boiler, portrait crop"
+        alt="A plumber tightening a valve on the pipework above a hot-water cylinder"
+        ratio="4/5"
+        bordered
+        eager
+        width={760}
+        sizes="(max-width: 860px) 100vw, 44vw"
+      />
+    </div>
+  </section>
+
+  <!-- Trust strip ------------------------------------------------------ -->
+  <section class="border-b border-ink/8 bg-white px-6 py-[26px]">
+    <div class="mx-auto flex max-w-[1240px] flex-wrap items-center justify-center gap-x-12 gap-y-6">
+      <div class="flex items-center gap-[18px]">
+        <GasSafeMark />
+        <div class="leading-[1.35]">
+          <p class="m-0 text-base font-extrabold tracking-[-.01em]">Gas Safe registered</p>
+          <p class="m-0 text-[13.5px] font-semibold text-cardtext">
+            {BUSINESS.gasSafeNumber ? `Registration no. ${BUSINESS.gasSafeNumber} · ` : ''}<a
+              href="https://www.gassaferegister.co.uk/find-an-engineer-or-check-the-register/"
+              rel="noopener"
+              class="font-semibold text-cardtext underline underline-offset-2 hover:text-ink"
+              >verify on the register</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="hidden h-[52px] w-px bg-ink/12 nav:block" aria-hidden="true"></div>
+
+      <div class="flex items-center gap-4">
+        <p class="m-0 text-[34px] font-extrabold tracking-[-.03em]">{BUSINESS.rating.value}</p>
+        <div class="leading-[1.35]">
+          <Stars />
+          <p class="m-0 text-[13.5px] font-semibold text-cardtext">
+            Google reviews from London customers
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services grid ---------------------------------------------------- -->
+  <section class="section bg-white px-6">
+    <div class="mx-auto max-w-[1240px]">
+      <div class="mb-11 flex flex-wrap items-end justify-between gap-6">
+        <div class="max-w-[620px]">
+          <p class="eyebrow mb-3.5">What we do</p>
+          <h2 class="h2-grid">Seven services, one team you can call back</h2>
+        </div>
+        <p class="m-0 max-w-[34ch] text-[15px] leading-relaxed font-medium text-cardtext">
+          Domestic and commercial work across London. Fixed quotes before we start, and no
+          callout charge on quoted jobs.
+        </p>
+      </div>
+
+      <ul class="autogrid m-0 list-none gap-5 p-0" style="--min:290px">
+        {
+          SERVICES.map((s) =>
+            s.icon === 'emergency' ? (
+              <li class="on-dark card-lift-dark flex flex-col gap-3.5 rounded-card bg-ink px-7 pt-[30px] pb-[26px] text-tint">
+                <div class="flex items-center justify-between">
+                  <span class="flex size-[46px] items-center justify-center rounded-tile bg-orange text-ink">
+                    <Icon name={s.icon} />
+                  </span>
+                  <span class="text-[11px] font-extrabold tracking-[.08em] uppercase text-orange">
+                    24/7
+                  </span>
+                </div>
+                <h3 class="m-0 text-[22px] font-extrabold tracking-[-.02em]">{s.name}</h3>
+                <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-tint/75">{s.cardBody}</p>
+                <a
+                  href={`tel:${BUSINESS.mobile.tel}`}
+                  data-track="call"
+                  class="mt-auto text-[13.5px] font-extrabold text-cyan hover:text-cyan"
+                >
+                  Call {BUSINESS.mobile.display} →
+                </a>
+              </li>
+            ) : (
+              <li class="card-lift flex flex-col gap-3.5 rounded-card border border-ink/8 bg-tint px-7 pt-[30px] pb-[26px]">
+                <div class="flex items-center justify-between">
+                  <span class="flex size-[46px] items-center justify-center rounded-tile bg-pale text-blue">
+                    <Icon name={s.icon} />
+                  </span>
+                  <span class="text-xs font-bold text-cardnum">{s.number}</span>
+                </div>
+                <h3 class="m-0 text-[22px] font-extrabold tracking-[-.02em]">{s.name}</h3>
+                <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-cardtext">
+                  {s.cardBody}
+                </p>
+                <a href={s.href} class="mt-auto text-[13.5px] font-extrabold text-blue">
+                  {s.linkLabel} →
+                </a>
+              </li>
+            )
+          )
+        }
+
+        <li class="flex flex-col gap-3 rounded-card bg-blue px-7 pt-[30px] pb-[26px] text-white">
+          <h3 class="m-0 text-[22px] font-extrabold tracking-[-.02em]">Not sure what you need?</h3>
+          <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-white">
+            Describe the problem on the phone and we will tell you whether it is a repair, a
+            service or a replacement — before anyone visits.
+          </p>
+          <a
+            href={`tel:${BUSINESS.mobile.tel}`}
+            data-track="call"
+            class="mt-auto text-[15px] font-extrabold text-white hover:text-white"
+          >
+            {BUSINESS.mobile.display} →
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Why us ----------------------------------------------------------- -->
+  <section class="section bg-tint px-6">
+    <div
+      class="autogrid mx-auto max-w-[1240px] items-center gap-[clamp(32px,4vw,60px)]"
+      style="--min:320px"
+    >
+      <div class="relative min-w-0">
+        <Photo
+          slug="team-van"
+          caption="photo — team &amp; van outside a London terrace"
+          alt="A service van parked on a London street"
+          ratio="1/1"
+          width={760}
+          sizes="(max-width: 860px) 100vw, 44vw"
+        />
+        <div class="absolute -top-3 -right-3 w-[156px] rounded-xl bg-blue p-5 text-white">
+          <p class="m-0 text-[42px] leading-none font-extrabold tracking-[-.04em]">
+            {BUSINESS.yearsLabel}
+          </p>
+          <p class="m-0 mt-1 text-[12.5px] leading-[1.35] font-bold">
+            years of plumbing and heating
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <p class="eyebrow mb-3.5">Why {BUSINESS.name}</p>
+        <h2 class="h2 mb-5">A local firm, not a franchise</h2>
+        <p class="prose-body m-0 mb-[30px] max-w-[52ch]">
+          We have been based in West London since {BUSINESS.established} and most of our work
+          still comes from neighbours recommending us. The engineer who quotes your job is the
+          engineer who does it.
+        </p>
+
+        <ul class="m-0 grid list-none gap-0.5 overflow-hidden rounded-xl bg-ink/10 p-0">
+          {
+            PROMISES.map((p) => (
+              <li class="flex items-start gap-4 bg-white px-[22px] py-5">
+                <span class="pt-[3px] text-xs font-extrabold text-orange-text">{p.number}</span>
+                <span class="block">
+                  <span class="mb-1 block text-[16.5px] font-extrabold tracking-[-.01em]">
+                    {p.title}
+                  </span>
+                  <span class="block text-sm leading-[1.55] font-medium text-cardtext">
+                    {p.body}
+                  </span>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works ----------------------------------------------------- -->
+  <section class="section bg-white px-6">
+    <div class="mx-auto max-w-[1240px]">
+      <h2 class="h2 mb-10 max-w-[24ch]">How a job with us works</h2>
+      <ol class="autogrid m-0 list-none gap-6 p-0" style="--min:260px">
+        {
+          STEPS.map((s, i) => (
+            <li
+              class:list={[
+                'border-t-[3px] pt-[22px]',
+                i === 0 ? 'border-orange' : 'border-ink/15',
+              ]}
+            >
+              <p class="eyebrow mb-2.5 text-meta-soft">{s.eyebrow}</p>
+              <h3 class="m-0 mb-2 text-[23px] font-extrabold tracking-[-.02em]">{s.title}</h3>
+              <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-cardtext">{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Reviews ---------------------------------------------------------- -->
+  <section class="on-dark section bg-ink px-6 text-tint">
+    <div class="mx-auto max-w-[1240px]">
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+        <h2 class="h2 max-w-[22ch]">What London customers say</h2>
+        <div class="flex items-center gap-3.5 rounded-[10px] border border-tint/20 px-[18px] py-3.5">
+          <p class="m-0 text-[32px] font-extrabold tracking-[-.03em]">{BUSINESS.rating.value}</p>
+          <p class="m-0 text-[13px] leading-[1.35] font-semibold text-tint/70">
+            <Stars size={13} />
+            Google reviews
+          </p>
+        </div>
+      </div>
+
+      {/* Real Google reviews — reorder REVIEWS in src/data/site.ts to change which three show. */}
+      <ul class="autogrid m-0 list-none gap-5 p-0" style="--min:300px">
+        {
+          REVIEWS.slice(0, 3).map((r) => (
+            <li class="rounded-card border border-tint/10 bg-darkcard p-7">
+              <Stars size={15} class="mb-4" />
+              <blockquote class="m-0 mb-[22px] text-base leading-[1.6] font-medium">
+                {r.quote}
+              </blockquote>
+              <div class="flex items-center gap-3">
+                <span class="hatch-avatar size-[38px] shrink-0 rounded-full" aria-hidden="true" />
+                <span class="block">
+                  <span class="block text-sm font-bold">{r.name}</span>
+                  <span class="block text-[12.5px] font-semibold text-tint/55">{r.meta}</span>
+                </span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Coverage --------------------------------------------------------- -->
+  <section id="coverage" class="section bg-tint px-6 scroll-mt-24">
+    <div
+      class="autogrid mx-auto max-w-[1240px] items-center gap-[clamp(32px,4vw,56px)]"
+      style="--min:320px"
+    >
+      <div>
+        <p class="eyebrow mb-3.5">Where we work</p>
+        <h2 class="h2 mb-[18px]">{BUSINESS.coverage}</h2>
+        <p class="prose-body m-0 mb-[26px] max-w-[46ch]">
+          West and Central London get the fastest emergency response, usually
+          within the hour.
+        </p>
+        <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+          {
+            BOROUGH_CHIPS.map((b) => (
+              <li class="rounded-full border border-ink/12 bg-white px-[15px] py-[9px] text-[13px] font-bold">
+                {b}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <Map label="Every London borough we cover" class="aspect-[4/3]" />
+    </div>
+  </section>
+
+  <!-- FAQ -------------------------------------------------------------- -->
+  <section class="section bg-white px-6">
+    <div class="mx-auto max-w-[880px]">
+      <h2 class="h2 mb-8">Common questions</h2>
+      <div class="grid gap-3">
+        {
+          FAQS.map((f, i) => (
+            <details
+              open={i === 0}
+              class="rounded-xl border border-ink/10 bg-tint px-[22px] py-5"
+            >
+              <summary class="flex items-center justify-between gap-4 text-[17.5px] font-extrabold tracking-[-.01em]">
+                {f.q}
+                <span
+                  class="faq-plus text-[22px] font-semibold text-orange transition-transform duration-200"
+                  aria-hidden="true"
+                >
+                  +
+                </span>
+              </summary>
+              <p class="m-0 mt-3.5 text-[15px] leading-[1.65] font-medium text-body">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

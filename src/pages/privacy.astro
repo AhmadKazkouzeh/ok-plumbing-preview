@@ -1,0 +1,45 @@
+---
+import Base from '~/layouts/Base.astro';
+import { BUSINESS } from '~/data/site';
+---
+
+{/*
+  TODO — client content required.
+  This page states only what is factually true of the site as built: which fields
+  the forms collect and where enquiries go. A full GDPR privacy notice (lawful
+  basis, retention periods, processors, data-subject rights, ICO registration)
+  must be supplied by the client or their solicitor before launch.
+*/}
+
+<Base
+  title="Privacy | OK Plumbing and Heating"
+  description="How OK Plumbing and Heating handles the details you send through this website."
+>
+  <section class="section bg-white px-6">
+    <div class="mx-auto max-w-[720px]">
+      <h1 class="h1 mb-6">Privacy</h1>
+
+      <p class="prose-body m-0 mb-4">
+        When you send the booking form or the boiler survey form on this site, we receive the
+        name, phone number, postcode and any other details you type in. We use them only to
+        arrange the work you asked about. We do not sell or share them.
+      </p>
+      <p class="prose-body m-0 mb-4">
+        To ask what we hold about you, or to have it deleted, email
+        <a href={`mailto:${BUSINESS.email}`} class="font-extrabold">{BUSINESS.email}</a> or call
+        <a href={`tel:${BUSINESS.landline.tel}`} data-track="call" class="font-extrabold"
+          >{BUSINESS.landline.display}</a
+        >.
+      </p>
+      {/* TODO (client/solicitor): a UK GDPR privacy notice normally names the data
+          controller and gives a postal address for written requests. The trading
+          address is deliberately not published on this site, so either give a
+          correspondence address here or keep this line, which offers one on request. */}
+      <p class="prose-body m-0">
+        We do not publish a trading address — our engineers work at customer premises rather
+        than from a public office. If you would rather write to us, ask by email or phone and
+        we will give you a postal address for correspondence.
+      </p>
+    </div>
+  </section>
+</Base>

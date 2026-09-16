@@ -1,0 +1,89 @@
+---
+import Base from '~/layouts/Base.astro';
+import PageHeader from '~/components/PageHeader.astro';
+import Photo from '~/components/Photo.astro';
+import { BUSINESS, CONTACT_ROUTE, TEAM } from '~/data/site';
+---
+
+<Base
+  title="About Us | London Plumbing & Heating Since 2010"
+  description="A small West London plumbing and heating firm, Gas Safe registered and working on recommendation since 2010. Fixed prices, 12-month guarantee."
+>
+  <PageHeader
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+    title="Fifteen years of London plumbing and heating"
+    intro="A small West London firm, Gas Safe registered, working mostly on recommendation. The engineer who quotes your job is the engineer who does it."
+  />
+
+  <section class="section-sm bg-white px-6">
+    <div
+      class="autogrid mx-auto max-w-[1240px] items-center gap-[clamp(32px,4vw,56px)]"
+      style="--min:300px"
+    >
+      <div>
+        <h2 class="h2-sub mb-4">How we work</h2>
+        <p class="prose-body m-0 mb-4">
+          We started in {BUSINESS.established} fitting boilers in Hammersmith and Fulham and grew
+          by word of mouth. Today we cover all 32 boroughs with the same approach: look at the job
+          properly, explain the options in plain English, give a fixed written price, then do the
+          work when we said we would.
+        </p>
+        <p class="prose-body m-0">
+          Every engineer is Gas Safe registered, insured and DBS checked, and everything we fit
+          carries a 12-month workmanship guarantee on top of the manufacturer warranty.
+        </p>
+      </div>
+
+      <Photo
+        slug="about-team"
+        caption="photo — two engineers with the van"
+        alt="Two engineers in workwear"
+        ratio="4/3"
+        width={720}
+        sizes="(max-width: 860px) 100vw, 44vw"
+      />
+    </div>
+  </section>
+
+  <section id="team" class="section-sm bg-tint px-6 scroll-mt-24">
+    <div class="mx-auto max-w-[1240px]">
+      <h2 class="h2-sub mb-8">The team</h2>
+
+      {/* TODO: confirm team names, roles and bios with the client. */}
+      <ul class="autogrid m-0 list-none gap-5 p-0" style="--min:240px">
+        {
+          TEAM.map((member) => (
+            <li class="overflow-hidden rounded-card border border-ink/9 bg-white">
+              <Photo
+                slug={member.photoSlug}
+                caption={`portrait — ${member.name}`}
+                alt={`${member.name}, ${member.role} at OK Plumbing and Heating`}
+                ratio="1/1"
+                radius={0}
+                width={420}
+                sizes="(max-width: 860px) 100vw, 25vw"
+              />
+              <div class="p-5">
+                <p class="m-0 text-[18px] font-extrabold tracking-[-.015em]">{member.name}</p>
+                <p class="m-0 mt-0.5 text-[13.5px] font-bold text-blue">{member.role}</p>
+                <p class="m-0 mt-2.5 text-sm leading-[1.6] font-medium text-cardtext">
+                  {member.bio}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+
+        <li class="flex flex-col justify-center gap-2.5 rounded-card bg-blue p-6 text-white">
+          <p class="m-0 text-xl font-extrabold tracking-[-.02em]">Hiring</p>
+          <p class="m-0 text-[14.5px] leading-[1.6] font-medium text-white">
+            We are always interested in hearing from Gas Safe registered engineers in London.
+          </p>
+          <a href={CONTACT_ROUTE} class="mt-auto text-sm font-extrabold text-white hover:text-white">
+            Get in touch →
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</Base>

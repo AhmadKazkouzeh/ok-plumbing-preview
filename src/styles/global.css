@@ -1,0 +1,385 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/manrope/index.css';
+
+/* ---------------------------------------------------------------------------
+   Design tokens — from the approved handoff. Do not hard-code these hex values
+   in components; use the Tailwind utilities these generate (bg-ink, text-blue…).
+   --------------------------------------------------------------------------- */
+@theme {
+  /* One real breakpoint: below 860px is mobile chrome, 861px and up is desktop. */
+  --breakpoint-*: initial;
+  --breakpoint-nav: 861px;
+
+  --font-sans: 'Manrope Variable', Manrope, system-ui, sans-serif;
+
+  --color-ink: #0e1621;
+  --color-ink-hover: #000000;
+  --color-tint: #f6f8fa;
+  --color-blue: #0b72b8;
+  --color-blue-hover: #08578d;
+  --color-cyan: #12aeef;
+  --color-orange: #f2701d;
+  --color-orange-hover: #d95f0f;
+  --color-orange-text: #bf5817;   /* orange dark enough to be readable as text on white */
+  --color-pale: #e4f5fd;
+  --color-body: #39424f;
+  --color-muted: #4a5462;
+  --color-cardtext: #5a6270;
+  --color-meta: #6a7281;          /* darkened from #6B7382 to clear 4.5:1 on the tint */
+  --color-meta-soft: #6f7683;     /* darkened from #7A8290 to clear 4.5:1 on white */
+  --color-placeholder: #5c6573;
+  --color-cardnum: #6d7177;       /* darkened from #BFC6D0: the handoff value was 1.6:1 */
+  --color-darkcard: #18212e;
+  --color-field: #f9fafb;
+
+  --radius-card: 14px;
+  --radius-panel: 16px;
+  --radius-control: 9px;
+  --radius-tile: 10px;
+
+  --shadow-lift: 0 14px 34px rgb(14 22 33 / 0.1);
+  --shadow-lift-dark: 0 14px 34px rgb(14 22 33 / 0.28);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Room for the fixed mobile call bar. */
+  @media (max-width: 860px) {
+    body {
+      padding-bottom: 74px;
+    }
+  }
+
+  a {
+    color: var(--color-blue);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-blue-hover);
+  }
+
+  /* Visible keyboard focus everywhere — the design's `outline:none` alone is not
+     accessible, so every focusable element gets a ring on :focus-visible. */
+  :focus-visible {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--color-cyan);
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  details[open] .faq-plus {
+    transform: rotate(45deg);
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* Layout ---------------------------------------------------------------- */
+  .wrap {
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  .section {
+    padding-block: clamp(52px, 6vw, 88px);
+  }
+  .section-sm {
+    padding-block: clamp(44px, 5vw, 72px);
+  }
+  /* auto-fit grid: --min sets the minimum column width */
+  .autogrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min, 280px)), 1fr));
+  }
+
+  /* Type ------------------------------------------------------------------ */
+  .h1 {
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    margin: 0;
+  }
+  .h1-hero {
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .h2 {
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    margin: 0;
+  }
+  .h2-grid {
+    font-size: clamp(28px, 3.6vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    margin: 0;
+  }
+  .h2-sub {
+    font-size: clamp(24px, 2.8vw, 32px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    margin: 0;
+  }
+  .h2-row {
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+    margin: 0;
+  }
+  .eyebrow {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-blue);
+  }
+  .lede {
+    font-size: clamp(16px, 1.4vw, 18.5px);
+    line-height: 1.6;
+    font-weight: 500;
+    text-wrap: pretty;
+  }
+  .prose-body {
+    font-size: 16.5px;
+    line-height: 1.7;
+    font-weight: 500;
+    color: var(--color-body);
+  }
+
+  /* Buttons --------------------------------------------------------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radius-control);
+    font-weight: 800;
+    font-size: 15.5px;
+    padding: 17px 28px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+  }
+  /* Orange buttons deliberately use dark ink text, not white, to clear 4.5:1. */
+  .btn-primary {
+    background: var(--color-orange);
+    color: var(--color-ink);
+  }
+  .btn-primary:hover {
+    background: var(--color-orange-hover);
+    color: var(--color-ink);
+  }
+  .btn-outline {
+    background: #fff;
+    color: var(--color-ink);
+    border-color: rgb(14 22 33 / 0.2);
+    font-weight: 700;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+  .btn-outline-dark {
+    background: transparent;
+    color: var(--color-tint);
+    border-color: rgb(246 248 250 / 0.28);
+    font-weight: 700;
+  }
+  .btn-outline-dark:hover {
+    border-color: var(--color-tint);
+    color: var(--color-tint);
+  }
+  .btn-dark {
+    background: var(--color-ink);
+    color: #fff;
+  }
+  .btn-dark:hover {
+    background: var(--color-ink-hover);
+    color: #fff;
+  }
+
+  /* Cards ----------------------------------------------------------------- */
+  .card-lift {
+    transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+  }
+  .card-lift:hover {
+    border-color: var(--color-ink);
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-3px);
+  }
+  .card-lift-dark {
+    transition: box-shadow 0.18s ease, transform 0.18s ease;
+  }
+  .card-lift-dark:hover {
+    box-shadow: var(--shadow-lift-dark);
+    transform: translateY(-3px);
+  }
+
+  /* Forms ----------------------------------------------------------------- */
+  .field-label {
+    display: grid;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .field {
+    font: 500 15px var(--font-sans);
+    padding: 13px 14px;
+    border: 1px solid rgb(14 22 33 / 0.16);
+    border-radius: var(--radius-control);
+    background: var(--color-field);
+    color: var(--color-ink);
+    width: 100%;
+  }
+  .field:focus {
+    border-color: var(--color-blue);
+  }
+  .field[aria-invalid='true'] {
+    border-color: #b3320a;
+    background: #fff6f2;
+  }
+  .field-error {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #b3320a;
+    margin: 0;
+  }
+
+  /* Chip / radio groups — real radio inputs, visually styled. */
+  .chip input,
+  .pick input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .chip > span {
+    display: inline-block;
+    border: 1px solid rgb(14 22 33 / 0.18);
+    border-radius: 100px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-body);
+    cursor: pointer;
+    transition: border-color 0.14s ease, color 0.14s ease, background-color 0.14s ease;
+  }
+  .chip > span:hover {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+  .chip input:checked + span {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: #fff;
+    font-weight: 700;
+  }
+  .chip input:focus-visible + span {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
+  }
+
+  .pick > span {
+    display: block;
+    border: 1px solid rgb(14 22 33 / 0.18);
+    border-radius: var(--radius-control);
+    padding: 12px;
+    text-align: center;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-body);
+    cursor: pointer;
+    transition: border-color 0.14s ease, color 0.14s ease, background-color 0.14s ease;
+  }
+  .pick > span:hover {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+  .pick input:checked + span {
+    border: 2px solid var(--color-blue);
+    background: var(--color-pale);
+    color: var(--color-blue);
+    font-weight: 800;
+    padding: 11px;
+  }
+  .pick input:focus-visible + span {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
+  }
+
+  /* Mobile chrome --------------------------------------------------------- */
+  .callbar {
+    display: none;
+  }
+  @media (max-width: 860px) {
+    .callbar {
+      display: grid;
+    }
+  }
+}
+
+@layer utilities {
+  .hatch {
+    background-image: repeating-linear-gradient(135deg, #dde3e9 0 9px, #e7ecf1 9px 18px);
+  }
+  .hatch-dark {
+    background-image: repeating-linear-gradient(135deg, #131c28 0 9px, #18212e 9px 18px);
+  }
+  .hatch-pale {
+    background-image: repeating-linear-gradient(135deg, #cfe6f2 0 9px, #dbedf7 9px 18px);
+  }
+  .hatch-logo {
+    background-image: repeating-linear-gradient(135deg, #e4e8ed 0 9px, #eef1f5 9px 18px);
+  }
+  .hatch-avatar {
+    background-image: repeating-linear-gradient(135deg, #222c3a 0 8px, #2a3543 8px 16px);
+  }
+  .mono {
+    font-family: ui-monospace, Menlo, monospace;
+  }
+}

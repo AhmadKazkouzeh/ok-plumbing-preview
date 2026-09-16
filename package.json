@@ -1,0 +1,30 @@
+{
+  "name": "ok-plumbing-heating-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketing website for OK Plumbing and Heating — Gas Safe registered plumbing and heating engineers, West London.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node tests/run-all.mjs",
+    "build:preview": "astro build && node scripts/make-preview.mjs --base=${PREVIEW_BASE:-/ok-plumbing-preview}"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource-variable/manrope": "^5.2.8",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.2",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "axe-core": "^4.13.0",
+    "playwright": "^1.63.0",
+    "typescript": "^6.0.3"
+  }
+}

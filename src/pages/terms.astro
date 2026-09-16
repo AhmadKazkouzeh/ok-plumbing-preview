@@ -1,0 +1,42 @@
+---
+import Base from '~/layouts/Base.astro';
+import { BUSINESS } from '~/data/site';
+---
+
+{/*
+  TODO — client content required.
+  Only facts already published elsewhere on this site appear below. Full terms of
+  business (payment terms, cancellation, liability, dispute resolution) must be
+  supplied by the client or their solicitor before launch.
+*/}
+
+<Base
+  title="Terms | OK Plumbing and Heating"
+  description="Terms on which OK Plumbing and Heating quotes and carries out work."
+>
+  <section class="section bg-white px-6">
+    <div class="mx-auto max-w-[720px]">
+      <h1 class="h1 mb-6">Terms</h1>
+
+      <p class="prose-body m-0 mb-4">
+        Quotes are given in writing after an engineer has looked at the job, and the price quoted
+        is the price you pay. There is no callout charge on work we have quoted for. Emergency
+        attendance out of hours carries a fixed first-hour rate, told to you on the phone before
+        we set off.
+      </p>
+      <p class="prose-body m-0 mb-4">
+        Everything we fit carries a 12-month workmanship guarantee in addition to any
+        manufacturer warranty. All gas work is carried out by Gas Safe registered engineers{
+          BUSINESS.gasSafeNumber ? ` under registration ${BUSINESS.gasSafeNumber}` : ''
+        }.
+      </p>
+      <p class="prose-body m-0">
+        Questions about any of this: <a href={`mailto:${BUSINESS.email}`} class="font-extrabold"
+          >{BUSINESS.email}</a
+        > or <a href={`tel:${BUSINESS.landline.tel}`} data-track="call" class="font-extrabold"
+          >{BUSINESS.landline.display}</a
+        >.
+      </p>
+    </div>
+  </section>
+</Base>

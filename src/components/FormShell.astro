@@ -1,0 +1,88 @@
+---
+/**
+ * Shared form wrapper: endpoint, honeypot, status region, success state and the
+ * enhancement script. Each form supplies its own fields in the default slot.
+ */
+import { BUSINESS } from '~/data/site';
+
+interface Props {
+  /** Identifies the submission in the client's inbox. */
+  subject: string;
+  successTitle: string;
+  successBody: string;
+  class?: string;
+}
+
+const { subject, successTitle, successBody, class: className = '' } = Astro.props;
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+---
+
+{/*
+  No `novalidate` in the markup: with JavaScript unavailable the browser's own
+  required-field checks are the only validation there is, so leaving it off keeps
+  them. The enhancement script adds it at runtime once it takes over.
+
+  `action` is only set when an endpoint is configured. An empty action would make
+  a no-JS submit POST back to this page and throw away what the visitor typed.
+*/}
+<form
+  data-form
+  method="post"
+  action={endpoint || undefined}
+  class={className}
+>
+  <input type="hidden" name="_subject" value={subject} />
+  <input type="hidden" name="_source" value={Astro.url.pathname} />
+
+  {/* Honeypot: off-screen for people, irresistible to bots. Not aria-hidden —
+      a focusable element inside an aria-hidden container is an a11y violation. */}
+  <div class="absolute -left-[9999px] h-px w-px overflow-hidden">
+    <label>
+      Leave this field empty
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" data-honeypot />
+    </label>
+  </div>
+
+  {
+    !endpoint && (
+      <noscript>
+        <p class="m-0 mb-4 rounded-[9px] bg-[#FFF1EA] px-3.5 py-3 text-[13.5px] leading-snug font-bold text-[#8F2A08]">
+          This form needs JavaScript to send. Please call {BUSINESS.mobile.display} and we will
+          book you in.
+        </p>
+      </noscript>
+    )
+  }
+
+  <div data-form-body class="grid gap-[18px]">
+    <slot />
+
+    <p
+      data-form-status
+      hidden
+      role="alert"
+      class="m-0 rounded-[9px] px-3.5 py-3 text-[13.5px] leading-snug font-bold data-[tone=error]:bg-[#FFF1EA] data-[tone=error]:text-[#8F2A08]"
+    >
+    </p>
+  </div>
+
+  <div
+    data-form-success
+    hidden
+    tabindex="-1"
+    class="grid gap-3 rounded-xl border border-blue/25 bg-pale p-6"
+  >
+    <p class="m-0 text-[20px] font-extrabold tracking-[-.02em] text-ink">{successTitle}</p>
+    <p class="m-0 text-[15px] leading-[1.6] font-medium text-body">{successBody}</p>
+    <p class="m-0 text-[15px] leading-[1.6] font-medium text-body">
+      Need us sooner? Call
+      <a href={`tel:${BUSINESS.mobile.tel}`} data-track="call" class="font-extrabold"
+        >{BUSINESS.mobile.display}</a
+      > — answered 24 hours.
+    </p>
+  </div>
+</form>
+
+<script>
+  import '~/scripts/forms';
+</script>

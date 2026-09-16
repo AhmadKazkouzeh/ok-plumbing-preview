@@ -1,0 +1,51 @@
+---
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  crumbs: Crumb[];
+  title: string;
+  intro?: string;
+  titleClass?: string;
+}
+
+const { crumbs, title, intro, titleClass = 'max-w-[22ch]' } = Astro.props;
+---
+
+<section class="on-dark bg-ink px-6 py-[clamp(44px,5vw,64px)] text-tint">
+  <div class="mx-auto max-w-[1240px]">
+    <nav aria-label="Breadcrumb" class="mb-5 text-[12.5px] font-semibold text-tint/55">
+      <ol class="flex list-none flex-wrap gap-1 p-0">
+        {
+          crumbs.map((c, i) => (
+            <li class="flex gap-1">
+              {c.href ? (
+                <a href={c.href} class="text-tint/55 hover:text-white">
+                  {c.label}
+                </a>
+              ) : (
+                <span class="font-bold text-cyan" aria-current="page">
+                  {c.label}
+                </span>
+              )}
+              {i < crumbs.length - 1 && <span aria-hidden="true">/</span>}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <h1 class:list={['h1 mb-[18px]', titleClass]}>{title}</h1>
+
+    {
+      intro && (
+        <p class="lede m-0 max-w-[56ch] text-tint/72" style="font-size:clamp(16px,1.4vw,18px)">
+          {intro}
+        </p>
+      )
+    }
+    <slot />
+  </div>
+</section>

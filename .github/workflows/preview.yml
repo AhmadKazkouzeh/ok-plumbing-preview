@@ -1,0 +1,57 @@
+# Temporary preview deploy to GitHub Pages.
+#
+# Builds the site with a base path matching the repo name and publishes it to
+# https://<owner>.github.io/<repo>/ — with noindex and a disallow-all robots.txt
+# applied by scripts/make-preview.mjs, so an unfinished site for a real business
+# cannot be indexed.
+#
+# The base path is taken from the repo name, so renaming the repo does not break
+# the build. Delete this file and scripts/make-preview.mjs when the preview is
+# no longer needed; nothing else in the project depends on them.
+name: Preview
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; always finish the newest.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build:preview
+        env:
+          PREVIEW_BASE: /${{ github.event.repository.name }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,44 @@
+---
+/**
+ * Google Maps embed, pinned on central London.
+ *
+ * With `PUBLIC_GOOGLE_MAPS_KEY` set in `.env` this uses the official Maps Embed
+ * API. Without one it falls back to the keyless embed, so the map works on day
+ * one and gets better when the client's key arrives — no code change.
+ *
+ * Note: the iframe loads Google on page load and Google sets its own cookies.
+ * The site has no cookie banner, so if one is ever added, this is what it needs
+ * to cover.
+ */
+interface Props {
+  /** What the map centres and drops its pin on. */
+  query?: string;
+  /** 11 frames Greater London with the pin on the centre; 14 is street level. */
+  zoom?: number;
+  /** Iframe label — describe what the map shows. */
+  label?: string;
+  class?: string;
+}
+
+const {
+  query = 'London, UK',
+  zoom = 11,
+  label = 'Map of our London coverage area',
+  class: className = '',
+} = Astro.props;
+
+const key = import.meta.env.PUBLIC_GOOGLE_MAPS_KEY;
+
+const src = key
+  ? `https://www.google.com/maps/embed/v1/place?key=${key}&q=${encodeURIComponent(query)}&zoom=${zoom}`
+  : `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=${zoom}&output=embed`;
+---
+
+<div class={`overflow-hidden rounded-[14px] border border-ink/10 bg-tint ${className}`}>
+  <iframe
+    src={src}
+    title={label}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    class="block h-full w-full border-0"></iframe>
+</div>

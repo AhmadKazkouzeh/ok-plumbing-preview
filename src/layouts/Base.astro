@@ -1,0 +1,164 @@
+---
+import '~/styles/global.css';
+import EmergencyBar from '~/components/EmergencyBar.astro';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import MobileCallBar from '~/components/MobileCallBar.astro';
+import { BUSINESS, SERVICES, SITE_URL } from '~/data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Extra JSON-LD for this page (e.g. FAQPage). */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, schema } = Astro.props;
+
+// Trailing slash, to match what the sitemap lists and what a directory-format
+// build actually serves.
+const canonical = new URL(
+  Astro.url.pathname.replace(/\/*$/, '/'),
+  SITE_URL
+).href;
+
+const a = BUSINESS.address;
+
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'Plumber',
+  '@id': `${SITE_URL}/#business`,
+  name: BUSINESS.name,
+  url: SITE_URL,
+  telephone: BUSINESS.mobile.tel,
+  email: BUSINESS.email,
+  foundingDate: String(BUSINESS.established),
+  description:
+    'Gas Safe registered plumbing and heating engineers covering all 32 London boroughs. Boiler installation and repairs, central heating, plumbing repairs, 24/7 emergency call-out, servicing, bathrooms and air conditioning installation.',
+  // Service-area business: engineers travel to the customer, so there is no
+  // public street address, postcode or geo point. Locality and country keep the
+  // PostalAddress valid; areaServed carries what a searcher actually needs.
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: a.locality,
+    addressRegion: a.region,
+    addressCountry: a.country,
+  },
+  areaServed: { '@type': 'City', name: 'London' },
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      telephone: BUSINESS.mobile.tel,
+      contactType: 'emergency',
+      availableLanguage: 'en',
+      hoursAvailable: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '00:00',
+        closes: '23:59',
+      },
+    },
+    {
+      '@type': 'ContactPoint',
+      telephone: BUSINESS.landline.tel,
+      contactType: 'customer service',
+      availableLanguage: 'en',
+    },
+  ],
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '18:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday'],
+      opens: '09:00',
+      closes: '14:00',
+    },
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Plumbing and heating services',
+    itemListElement: SERVICES.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.name },
+    })),
+  },
+  // Emitted only once a real Google review count is set in src/data/site.ts.
+  ...(BUSINESS.rating.count
+    ? {
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: BUSINESS.rating.value,
+          ratingCount: BUSINESS.rating.count,
+          bestRating: '5',
+        },
+      }
+    : {}),
+};
+
+const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0E1621" />
+    <meta name="robots" content="index, follow" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={BUSINESS.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content={new URL('/og.png', SITE_URL).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${BUSINESS.name} — Gas Safe registered plumbing and heating across London`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL('/og.png', SITE_URL).href} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(localBusiness)}
+    />
+    {
+      extra.map((s) => (
+        <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
+      ))
+    }
+  </head>
+
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-lg focus:bg-ink focus:px-4 focus:py-3 focus:font-bold focus:text-white"
+    >
+      Skip to content
+    </a>
+
+    <div class="max-w-full overflow-x-hidden">
+      <EmergencyBar />
+      <Header />
+      <main id="main">
+        <slot />
+      </main>
+      <MobileCallBar />
+      <Footer />
+    </div>
+  </body>
+</html>

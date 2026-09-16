@@ -1,0 +1,60 @@
+---
+/**
+ * Gas Safe Register mark.
+ *
+ * `public/gas-safe.svg` is a vector trace of the official artwork published on
+ * Gas Safe Register's own asset host — see CREDITS.md for the source URL and
+ * `brand/trace-gas-safe.py` for the trace. It is pixel-accurate against the
+ * raster and has a transparent background.
+ *
+ * Before launch the client should replace it with the licensed artwork from
+ * their Gas Safe business portal: drop the file in as
+ * `src/assets/gas-safe.(svg|png|jpg)` and it takes over automatically, no code
+ * change needed.
+ *
+ * The mark is black-on-yellow and must not be recoloured, so on dark surfaces
+ * it sits on a white panel — which is what Gas Safe's own brand rules ask for.
+ */
+import { Image } from 'astro:assets';
+
+interface Props {
+  /** Rendered height in px. Width follows the mark's 1086:1219 ratio. */
+  height?: number;
+  /** `dark` puts the mark on a white panel so it stays legible. */
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+
+const { height = 68, tone = 'light', class: className = '' } = Astro.props;
+
+// Ratio of the official artwork, 1086 x 1219.
+const width = Math.round((height * 1086) / 1219);
+
+const supplied = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/gas-safe.{svg,png,jpg,jpeg,webp}',
+  { eager: true }
+);
+const clientArtwork = Object.values(supplied)[0]?.default;
+
+const alt = 'Gas Safe Register';
+const panel =
+  tone === 'dark' ? 'rounded-lg bg-white p-2.5' : '';
+---
+
+<span class={`inline-flex shrink-0 items-center justify-center ${panel} ${className}`}>
+  {
+    clientArtwork ? (
+      <Image src={clientArtwork} alt={alt} width={width} height={height} class="block h-auto" />
+    ) : (
+      <img
+        src="/gas-safe.svg"
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        class="block"
+      />
+    )
+  }
+</span>

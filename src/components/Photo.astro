@@ -1,0 +1,108 @@
+---
+/**
+ * Photo slot.
+ *
+ * Drop a real photograph into `src/assets/photos/<slug>.(jpg|jpeg|png|webp|avif)`
+ * and it is picked up automatically, optimised through Astro's image pipeline
+ * and lazy-loaded. With no file present the slot renders the design's
+ * diagonally-hatched placeholder with its caption intact, so every shot still
+ * needed is visible on the page.
+ *
+ * Nothing else has to change when photography arrives — just add the file.
+ */
+import { Image } from 'astro:assets';
+
+interface Props {
+  /** Filename stem under src/assets/photos, e.g. "hero-engineer". */
+  slug: string;
+  /** Placeholder caption describing the shot needed. */
+  caption: string;
+  /** Alt text used once a real photo is in place. */
+  alt?: string;
+  /** CSS aspect-ratio, e.g. "4/5". Omit when height is set by `class`. */
+  ratio?: string;
+  /** Placeholder ink: light sections, dark sections, or the pale-blue AC card. */
+  tone?: 'light' | 'dark' | 'pale';
+  /** Border radius in px. */
+  radius?: number;
+  /** Show the hairline border the design puts on some slots. */
+  bordered?: boolean;
+  /** Above the fold — skip lazy-loading. */
+  eager?: boolean;
+  /** Rendered width hint for the image pipeline. */
+  width?: number;
+  sizes?: string;
+  class?: string;
+}
+
+const {
+  slug,
+  caption,
+  alt,
+  ratio,
+  tone = 'light',
+  radius = 16,
+  bordered = false,
+  eager = false,
+  width = 900,
+  sizes = '(max-width: 860px) 100vw, 50vw',
+  class: className = '',
+} = Astro.props;
+
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/photos/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+
+const match = Object.entries(photos).find(([path]) =>
+  /(?:^|\/)([^/]+)\.[a-z]+$/i.exec(path)?.[1] === slug
+);
+
+const hatch = { light: 'hatch', dark: 'hatch-dark', pale: 'hatch-pale' }[tone];
+const capColour =
+  tone === 'dark'
+    ? 'color:rgba(246,248,250,.7);background:rgba(11,15,20,.8)'
+    : tone === 'pale'
+      ? 'color:#40566A;background:rgba(255,255,255,.9)'
+      : 'color:#5C6573;background:rgba(255,255,255,.9)';
+
+const frame = [
+  className,
+  bordered ? 'border border-ink/8' : '',
+  'overflow-hidden min-w-0',
+].filter(Boolean).join(' ');
+
+const frameStyle = [
+  ratio ? `aspect-ratio:${ratio}` : '',
+  `border-radius:${radius}px`,
+].filter(Boolean).join(';');
+---
+
+{
+  match ? (
+    <div class={frame} style={frameStyle}>
+      <Image
+        src={match[1].default}
+        alt={alt ?? caption.replace(/^(photo|portrait|map)\s+—\s+/i, '')}
+        width={width}
+        sizes={sizes}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding={eager ? 'sync' : 'async'}
+        fetchpriority={eager ? 'high' : 'auto'}
+        class="h-full w-full object-cover"
+      />
+    </div>
+  ) : (
+    <div
+      class={`${frame} ${hatch} flex items-end p-4 sm:p-5`}
+      style={frameStyle}
+      role="img"
+      aria-label={`Placeholder for ${caption}`}
+      data-photo-slot={slug}
+    >
+      <span class="mono rounded-md px-2.5 py-1.5 text-[11px] leading-snug" style={capColour}>
+        {caption}
+      </span>
+    </div>
+  )
+}

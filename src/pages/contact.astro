@@ -1,0 +1,230 @@
+---
+import Base from '~/layouts/Base.astro';
+import Icon from '~/components/Icon.astro';
+import Map from '~/components/Map.astro';
+import FormShell from '~/components/FormShell.astro';
+import { BUSINESS } from '~/data/site';
+
+const NEEDS = [
+  'Boiler',
+  'Heating',
+  'Leak / repair',
+  'Service / CP12',
+  'Bathroom',
+  'Air conditioning',
+];
+const WHEN = ['Emergency', 'Within a week', 'Just quoting'];
+---
+
+<Base
+  title="Contact & Book an Engineer | 24/7 London | OK Plumbing"
+  description="Book a Gas Safe engineer in London. 24/7 emergency line on 07444 419144, office on 020 8811 2551, or send the form and we reply within one business day."
+>
+  <section class="bg-tint px-6 pt-[clamp(40px,5vw,56px)] pb-[clamp(52px,6vw,72px)]">
+    <div class="mx-auto max-w-[1240px]">
+      <div class="mb-10 max-w-[720px]">
+        <p class="eyebrow mb-3.5 font-extrabold">Contact</p>
+        <h1 class="h1 mb-4" style="font-size:clamp(34px,4.6vw,52px)">Book an engineer</h1>
+        <p class="lede m-0 text-body" style="font-size:clamp(16px,1.4vw,18px)">
+          Emergencies are always faster by phone. For quotes, surveys and anything that can wait
+          until morning, the form is the easiest route — we reply within one business day.
+        </p>
+      </div>
+
+      <div class="autogrid items-start gap-8" style="--min:320px">
+        <FormShell
+          subject="Booking request — okplumbing.co.uk"
+          successTitle="Request sent"
+          successBody="Thanks — we have your details and will be in touch within one business day."
+          class="rounded-panel border border-ink/10 bg-white p-[clamp(24px,3vw,34px)]"
+        >
+          <div class="autogrid gap-4" style="--min:140px">
+            <div>
+              <label class="field-label">
+                First name
+                <input
+                  type="text"
+                  name="firstName"
+                  required
+                  autocomplete="given-name"
+                  placeholder="Jane"
+                  class="field"
+                />
+              </label>
+              <p class="field-error mt-1.5" data-error-for="firstName" hidden></p>
+            </div>
+            <label class="field-label">
+              Last name
+              <input
+                type="text"
+                name="lastName"
+                autocomplete="family-name"
+                placeholder="Okonkwo"
+                class="field"
+              />
+            </label>
+          </div>
+
+          <div class="autogrid gap-4" style="--min:140px">
+            <div>
+              <label class="field-label">
+                Phone
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  autocomplete="tel"
+                  placeholder="07000 000000"
+                  class="field"
+                />
+              </label>
+              <p class="field-error mt-1.5" data-error-for="phone" hidden></p>
+            </div>
+            <div>
+              <label class="field-label">
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  placeholder="jane@example.com"
+                  class="field"
+                />
+              </label>
+              <p class="field-error mt-1.5" data-error-for="email" hidden></p>
+            </div>
+          </div>
+
+          <div class="autogrid gap-4" style="--min:140px">
+            <div>
+              <label class="field-label">
+                Postcode
+                <input
+                  type="text"
+                  name="postcode"
+                  required
+                  autocomplete="postal-code"
+                  placeholder="e.g. SW6 1AB"
+                  class="field"
+                />
+              </label>
+              <p class="field-error mt-1.5" data-error-for="postcode" hidden></p>
+            </div>
+            <label class="field-label">
+              Property
+              <input
+                type="text"
+                name="property"
+                placeholder="Flat, house, commercial"
+                class="field"
+              />
+            </label>
+          </div>
+
+          <fieldset class="m-0 grid gap-[9px] border-0 p-0">
+            <legend class="p-0 text-[13px] font-bold">What do you need?</legend>
+            <div class="flex flex-wrap gap-2">
+              {
+                NEEDS.map((need, i) => (
+                  <label class="chip relative">
+                    <input type="radio" name="need" value={need} checked={i === 0} />
+                    <span>{need}</span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <fieldset class="m-0 grid gap-[9px] border-0 p-0">
+            <legend class="p-0 text-[13px] font-bold">How soon?</legend>
+            <div class="grid gap-2" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
+              {
+                WHEN.map((when) => (
+                  <label class="pick relative">
+                    <input type="radio" name="when" value={when} checked={when === 'Within a week'} />
+                    <span>{when}</span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <label class="field-label">
+            Details
+            <textarea
+              name="details"
+              rows="4"
+              placeholder="Worcester combi, 9 years old, losing pressure every few days."
+              class="field resize-y"></textarea>
+          </label>
+
+          <button type="submit" class="btn btn-primary w-full" style="padding:17px;font-size:16px">
+            Send request
+          </button>
+
+          <p class="m-0 text-[12.5px] leading-[1.55] font-medium text-meta-soft">
+            We reply within one business day. Details are used only to arrange the work — never
+            shared.
+          </p>
+        </FormShell>
+
+        <div class="grid gap-4">
+          <a
+            href={`tel:${BUSINESS.mobile.tel}`}
+            data-track="call"
+            class="on-dark flex items-center gap-4 rounded-card bg-ink p-6 text-tint transition-colors hover:bg-ink-hover hover:text-tint"
+          >
+            <span class="flex size-[46px] shrink-0 items-center justify-center rounded-tile bg-orange text-ink">
+              <Icon name="phone" />
+            </span>
+            <span class="block">
+              <span class="block text-[11px] font-extrabold tracking-[.09em] uppercase text-tint/60">
+                24/7 emergency line
+              </span>
+              <span class="block text-2xl font-extrabold tracking-[-.02em]">
+                {BUSINESS.mobile.display}
+              </span>
+            </span>
+          </a>
+
+          <div class="grid gap-[18px] rounded-card border border-ink/10 bg-white p-6">
+            <div>
+              <h2 class="eyebrow m-0 mb-1.5 font-extrabold">Where we work</h2>
+              <p class="m-0 text-[15px] leading-[1.6] font-semibold">
+                {BUSINESS.coverage}<br />
+                <span class="font-medium text-cardtext">
+                  Engineers come to you — there is no walk-in office.
+                </span>
+              </p>
+            </div>
+            <div>
+              <h2 class="eyebrow m-0 mb-1.5 font-extrabold">Landline &amp; email</h2>
+              <p class="m-0 text-[15px] leading-[1.6] font-semibold">
+                <a href={`tel:${BUSINESS.landline.tel}`} data-track="call" class="text-ink hover:text-blue"
+                  >{BUSINESS.landline.display}</a
+                ><br />
+                <a href={`mailto:${BUSINESS.email}`} class="text-ink hover:text-blue"
+                  >{BUSINESS.email}</a
+                >
+              </p>
+            </div>
+            <div>
+              <h2 class="eyebrow m-0 mb-1.5 font-extrabold">Hours</h2>
+              <p class="m-0 text-[15px] leading-[1.6] font-semibold">
+                {BUSINESS.hours.weekday} · {BUSINESS.hours.saturday}<br />
+                {BUSINESS.hours.emergency}
+              </p>
+            </div>
+          </div>
+
+          <Map label="Our London coverage area" class="h-[260px]" />
+
+          <p class="m-0 rounded-card bg-pale p-[22px] text-[14.5px] leading-[1.65] font-semibold text-ink">
+            Landlord or letting agent? We handle multi-property portfolios with scheduled CP12
+            renewals and one consolidated invoice.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

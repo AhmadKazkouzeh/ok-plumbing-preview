@@ -1,0 +1,109 @@
+---
+// The vector logo has no background, so the same file works on the dark footer
+// as on the white header — no keyed-out variant needed.
+import GasSafeMark from '~/components/GasSafeMark.astro';
+import {
+  BUSINESS,
+  FOOTER_COMPANY_LINKS,
+  FOOTER_SERVICE_LINKS,
+} from '~/data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="on-dark bg-ink px-6 pt-[clamp(40px,5vw,56px)] pb-8 text-tint">
+  <div class="mx-auto max-w-[1240px]">
+    <div
+      class="autogrid gap-9 border-b border-tint/12 pb-10"
+      style="--min:200px"
+    >
+      <div>
+        <img
+          src="/ok-logo.svg"
+          alt={BUSINESS.name}
+          width="255"
+          height="40"
+          loading="lazy"
+          class="mb-4 block h-10 w-auto"
+        />
+        <p class="m-0 max-w-[34ch] text-sm leading-[1.65] font-medium text-tint/65">
+          Gas Safe registered plumbing and heating engineers, working across Greater London
+          since {BUSINESS.established}.
+        </p>
+        <GasSafeMark tone="dark" height={56} class="mt-5" />
+      </div>
+
+      <div>
+        <h2 class="mb-3.5 text-[11.5px] font-bold tracking-[.1em] uppercase text-cyan">
+          Services
+        </h2>
+        <ul class="grid list-none gap-[9px] p-0 text-sm font-semibold">
+          {
+            FOOTER_SERVICE_LINKS.map((l) => (
+              <li>
+                <a href={l.href} class="text-tint/75 hover:text-white">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="mb-3.5 text-[11.5px] font-bold tracking-[.1em] uppercase text-cyan">
+          Company
+        </h2>
+        <ul class="grid list-none gap-[9px] p-0 text-sm font-semibold">
+          {
+            FOOTER_COMPANY_LINKS.map((l) => (
+              <li>
+                <a href={l.href} class="text-tint/75 hover:text-white">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="mb-3.5 text-[11.5px] font-bold tracking-[.1em] uppercase text-cyan">
+          Contact
+        </h2>
+        <address class="grid gap-[9px] text-sm font-semibold text-tint/75 not-italic">
+          <a href={`tel:${BUSINESS.mobile.tel}`} data-track="call" class="text-tint/75 hover:text-white">
+            {BUSINESS.mobile.display}
+          </a>
+          <a href={`tel:${BUSINESS.landline.tel}`} data-track="call" class="text-tint/75 hover:text-white">
+            {BUSINESS.landline.display}
+          </a>
+          <a href={`mailto:${BUSINESS.email}`} class="text-tint/75 hover:text-white">
+            {BUSINESS.email}
+          </a>
+          <span class="font-medium text-tint/65">
+            {BUSINESS.coverage}<br />
+            Engineers come to you — no walk-in office.
+          </span>
+        </address>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-wrap justify-between gap-x-7 gap-y-3 pt-[22px] text-[12.5px] font-medium text-tint/50"
+    >
+      <span>
+        © {year} {BUSINESS.name}. Gas Safe registered{
+          BUSINESS.gasSafeNumber ? `, reg. ${BUSINESS.gasSafeNumber}` : ''
+        }.
+      </span>
+      <span class="flex flex-wrap gap-x-1.5">
+        <a href="/privacy/" class="text-tint/50 hover:text-white">Privacy</a>
+        <span aria-hidden="true">·</span>
+        <a href="/terms/" class="text-tint/50 hover:text-white">Terms</a>
+        <span aria-hidden="true">·</span>
+        <a href="/sitemap-index.xml" class="text-tint/50 hover:text-white">Sitemap</a>
+      </span>
+    </div>
+  </div>
+</footer>

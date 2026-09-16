@@ -1,0 +1,198 @@
+---
+import Base from '~/layouts/Base.astro';
+import Photo from '~/components/Photo.astro';
+import FormShell from '~/components/FormShell.astro';
+import { BOILER_JOBS, BUSINESS, CONTACT_ROUTE } from '~/data/site';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://okplumbing.co.uk/' },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Services',
+      item: 'https://okplumbing.co.uk/services/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Boiler Installation & Repairs',
+      item: 'https://okplumbing.co.uk/services/boiler-installation-repairs/',
+    },
+  ],
+};
+---
+
+<Base
+  title="Boiler Installation & Repairs in London | OK Plumbing"
+  description="Gas Safe engineers fitting, repairing and servicing combi, system and conventional boilers across London. Free survey, fixed quote, up to 10-year warranty."
+  schema={breadcrumbSchema}
+>
+  <section
+    class="on-dark bg-ink px-6 pt-[clamp(40px,5vw,56px)] pb-[clamp(48px,5vw,64px)] text-tint"
+  >
+    <div class="mx-auto max-w-[1240px]">
+      <nav aria-label="Breadcrumb" class="mb-[22px] text-[12.5px] font-semibold text-tint/55">
+        <ol class="flex list-none flex-wrap gap-1 p-0">
+          <li class="flex gap-1">
+            <a href="/" class="text-tint/55 hover:text-white">Home</a><span aria-hidden="true"
+              >/</span
+            >
+          </li>
+          <li class="flex gap-1">
+            <a href="/services/" class="text-tint/55 hover:text-white">Services</a><span
+              aria-hidden="true">/</span
+            >
+          </li>
+          <li>
+            <span class="font-bold text-cyan" aria-current="page">Boiler Installation &amp; Repairs</span>
+          </li>
+        </ol>
+      </nav>
+
+      <div
+        class="autogrid items-center gap-[clamp(32px,4vw,52px)]"
+        style="--min:320px"
+      >
+        <div>
+          <h1 class="h1 mb-[18px]" style="font-size:clamp(34px,4.6vw,54px)">
+            Boiler installation &amp; repairs
+          </h1>
+          <p class="lede m-0 mb-7 max-w-[52ch] text-tint/72" style="font-size:clamp(16px,1.4vw,18px)">
+            Gas Safe registered engineers fitting, repairing and servicing combi, system and
+            conventional boilers. Fixed written quote after a free survey, and up to 10 years of
+            manufacturer warranty on new installations.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href={CONTACT_ROUTE} class="btn btn-primary" style="padding:16px 26px">
+              Book a free survey
+            </a>
+            <a
+              href={`tel:${BUSINESS.mobile.tel}`}
+              data-track="call"
+              class="btn btn-outline-dark"
+              style="padding:16px 26px"
+            >
+              Boiler emergency? Call now
+            </a>
+          </div>
+        </div>
+
+        <Photo
+          slug="boiler-hero"
+          caption="photo — new combi in a utility cupboard"
+          alt="A heating engineer working in a domestic bathroom"
+          ratio="4/3"
+          radius={14}
+          tone="dark"
+          eager
+          width={720}
+          sizes="(max-width: 860px) 100vw, 44vw"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm bg-white px-6">
+    <div
+      class="autogrid mx-auto max-w-[1240px] items-start gap-[clamp(32px,4vw,56px)]"
+      style="--min:300px"
+    >
+      <div>
+        <h2 class="h2-sub mb-4">What the job involves</h2>
+        <p class="prose-body m-0 mb-7">
+          A typical boiler swap takes one day. We isolate and drain the system, remove the old
+          unit, fit and commission the new boiler, add a system filter and inhibitor, then test
+          every outlet and radiator with you before we leave. Your warranty is registered on the
+          day and the paperwork is emailed the same evening.
+        </p>
+
+        <div class="autogrid mb-9 gap-3.5" style="--min:240px">
+          <div class="rounded-xl bg-tint p-5">
+            <h3 class="eyebrow m-0 mb-1.5">Included</h3>
+            <p class="m-0 text-[14.5px] leading-[1.6] font-semibold text-body">
+              Removal and disposal of the old boiler, magnetic system filter, chemical flush,
+              commissioning and warranty registration.
+            </p>
+          </div>
+          <div class="rounded-xl bg-tint p-5">
+            <h3 class="eyebrow m-0 mb-1.5">Brands we fit</h3>
+            <p class="m-0 text-[14.5px] leading-[1.6] font-semibold text-body">
+              Worcester Bosch, Vaillant, Ideal, Baxi and Glow-worm — we recommend the right output
+              for your property, not the dearest unit.
+            </p>
+          </div>
+        </div>
+
+        <h2 class="h2-sub mb-5">Common boiler jobs</h2>
+        <ul class="m-0 grid list-none gap-2.5 p-0">
+          {
+            BOILER_JOBS.map((job) => (
+              <li class="flex flex-wrap items-center justify-between gap-x-5 gap-y-3 rounded-xl border border-ink/10 px-5 py-[18px]">
+                <span class="block">
+                  <span class="block text-[16.5px] font-extrabold">{job.title}</span>
+                  <span class="mt-[3px] block text-sm font-medium text-cardtext">
+                    {job.detail}
+                  </span>
+                </span>
+                <span class="text-[13px] font-bold text-blue">{job.duration}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <aside class="rounded-panel border border-ink/10 bg-tint p-7">
+        <h2 class="m-0 mb-1.5 text-[22px] font-extrabold tracking-[-.02em]">Free boiler survey</h2>
+        <p class="m-0 mb-5 text-[14.5px] leading-[1.6] font-medium text-cardtext">
+          One visit, one fixed price. No obligation and no callout charge.
+        </p>
+
+        <FormShell
+          subject="Boiler survey request — okplumbing.co.uk"
+          successTitle="Survey requested"
+          successBody="Thanks — we have your details and will call to arrange the survey within one business day."
+        >
+          <label class="field-label">
+            Your name
+            <input type="text" name="name" required autocomplete="name" placeholder="Jane Okonkwo" class="field" />
+          </label>
+          <p class="field-error" data-error-for="name" hidden></p>
+
+          <label class="field-label">
+            Phone
+            <input type="tel" name="phone" required autocomplete="tel" placeholder="07000 000000" class="field" />
+          </label>
+          <p class="field-error" data-error-for="phone" hidden></p>
+
+          <label class="field-label">
+            Postcode
+            <input
+              type="text"
+              name="postcode"
+              required
+              autocomplete="postal-code"
+              placeholder="e.g. SW6 1AB"
+              class="field"
+            />
+          </label>
+          <p class="field-error" data-error-for="postcode" hidden></p>
+
+          <button type="submit" class="btn btn-primary w-full" style="padding:15px;font-size:15px">
+            Request survey
+          </button>
+        </FormShell>
+
+        <p
+          class="mt-5 border-t border-ink/12 pt-[18px] text-[13.5px] leading-[1.6] font-semibold text-cardtext"
+        >
+          Or call <a href={`tel:${BUSINESS.mobile.tel}`} data-track="call" class="font-extrabold"
+            >{BUSINESS.mobile.display}</a
+          > — 24 hours, including bank holidays.
+        </p>
+      </aside>
+    </div>
+  </section>
+</Base>

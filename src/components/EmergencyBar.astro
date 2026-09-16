@@ -1,0 +1,21 @@
+---
+import { BUSINESS } from '~/data/site';
+---
+
+<div
+  role="complementary"
+  aria-label="Availability and accreditation"
+  class="on-dark flex flex-wrap items-center justify-center gap-x-7 gap-y-2 bg-ink px-6 py-2.5 text-center text-[13px] font-semibold text-tint"
+>
+  <span class="flex items-center gap-2">
+    <span
+      class="size-[7px] shrink-0 rounded-full bg-orange"
+      style="box-shadow:0 0 0 4px rgba(242,112,29,.22)"
+      aria-hidden="true"></span>
+    24/7 emergency call-out across London
+  </span>
+  <span class="font-medium text-tint/55">
+    Gas Safe registered{BUSINESS.gasSafeNumber ? ` · ${BUSINESS.gasSafeNumber}` : ''}
+  </span>
+  <span class="font-medium text-tint/55">{BUSINESS.rating.value}★ on Google</span>
+</div>

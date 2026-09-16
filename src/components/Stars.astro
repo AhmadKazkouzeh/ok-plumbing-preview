@@ -1,0 +1,20 @@
+---
+import { BUSINESS } from '~/data/site';
+
+interface Props {
+  size?: number;
+  class?: string;
+  /** Set false when nearby text already states the rating. */
+  labelled?: boolean;
+}
+
+const { size = 14, class: className = '', labelled = true } = Astro.props;
+---
+
+<span
+  class:list={['block text-orange', className]}
+  style={`font-size:${size}px;letter-spacing:.08em`}
+  role={labelled ? 'img' : undefined}
+  aria-label={labelled ? `Rated ${BUSINESS.rating.value} out of 5` : undefined}
+  aria-hidden={labelled ? undefined : 'true'}>★★★★★</span
+>
