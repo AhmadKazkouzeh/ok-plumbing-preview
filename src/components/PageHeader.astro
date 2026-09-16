@@ -14,19 +14,19 @@ interface Props {
 const { crumbs, title, intro, titleClass = 'max-w-[22ch]' } = Astro.props;
 ---
 
-<section class="on-dark bg-ink px-6 py-[clamp(44px,5vw,64px)] text-tint">
+<section class="border-b border-ink/8 bg-tint px-6 py-[clamp(44px,5vw,64px)]">
   <div class="mx-auto max-w-[1240px]">
-    <nav aria-label="Breadcrumb" class="mb-5 text-[12.5px] font-semibold text-tint/55">
+    <nav aria-label="Breadcrumb" class="mb-5 text-[12.5px] font-semibold text-meta">
       <ol class="flex list-none flex-wrap gap-1 p-0">
         {
           crumbs.map((c, i) => (
             <li class="flex gap-1">
               {c.href ? (
-                <a href={c.href} class="text-tint/55 hover:text-white">
+                <a href={c.href} class="text-meta hover:text-ink">
                   {c.label}
                 </a>
               ) : (
-                <span class="font-bold text-cyan" aria-current="page">
+                <span class="font-bold text-blue" aria-current="page">
                   {c.label}
                 </span>
               )}
@@ -41,7 +41,7 @@ const { crumbs, title, intro, titleClass = 'max-w-[22ch]' } = Astro.props;
 
     {
       intro && (
-        <p class="lede m-0 max-w-[56ch] text-tint/72" style="font-size:clamp(16px,1.4vw,18px)">
+        <p class="lede m-0 max-w-[56ch] text-muted" style="font-size:clamp(16px,1.4vw,18px)">
           {intro}
         </p>
       )
