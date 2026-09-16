@@ -205,12 +205,22 @@
     cursor: pointer;
     transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
   }
-  /* Orange buttons deliberately use dark ink text, not white, to clear 4.5:1. */
+  /* Primary is blue: white on #0B72B8 is 5.11:1, and on hover 7.61:1. */
   .btn-primary {
+    background: var(--color-blue);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--color-blue-hover);
+    color: #fff;
+  }
+  /* Secondary is orange, and deliberately uses dark ink text, not white —
+     white on #F2701D is only 2.95:1, ink is 6.15:1. */
+  .btn-secondary {
     background: var(--color-orange);
     color: var(--color-ink);
   }
-  .btn-primary:hover {
+  .btn-secondary:hover {
     background: var(--color-orange-hover);
     color: var(--color-ink);
   }
