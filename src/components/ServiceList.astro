@@ -2,9 +2,15 @@
 /**
  * A titled list of jobs inside a service category.
  *
- * Two columns from 480px so a fifteen-item list does not become a long scroll,
- * and a `note` renders as quieter text under the item rather than a footnote
- * marker, which nobody follows.
+ * Items carrying a `group` are split under that sub-heading — "Installation",
+ * "Repairs", "Servicing & maintenance" — because those are the words people
+ * search and click, and a flat run of thirty jobs is unreadable. Groups appear
+ * in the order they first occur in the data; anything ungrouped renders first,
+ * unlabelled.
+ *
+ * Two columns from 240px so the list stays scannable rather than becoming a
+ * long scroll, and a `note` sits quietly under its item instead of using a
+ * footnote marker nobody follows.
  */
 import type { ServiceItem } from '~/data/site';
 
@@ -15,36 +21,52 @@ interface Props {
 }
 
 const { title, items, tone = 'light' } = Astro.props;
+
+const order: string[] = [];
+for (const item of items) {
+  const key = item.group ?? '';
+  if (!order.includes(key)) order.push(key);
+}
+const groups = order.map((key) => ({
+  key,
+  items: items.filter((i) => (i.group ?? '') === key),
+}));
+
+const dot = tone === 'pale' ? 'bg-blue' : 'bg-orange';
 ---
 
 <div>
   <h3 class="eyebrow mb-4 font-extrabold">{title}</h3>
-  <ul
-    class="m-0 grid list-none gap-x-7 gap-y-2.5 p-0"
-    style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))"
-  >
+
+  <div class="grid gap-7">
     {
-      items.map((item) => (
-        <li class="flex gap-2.5">
-          <span
-            class:list={[
-              'mt-[7px] size-[6px] shrink-0 rounded-full',
-              tone === 'pale' ? 'bg-blue' : 'bg-orange',
-            ]}
-            aria-hidden="true"
-          />
-          <span class="block">
-            <span class="block text-[15px] leading-[1.5] font-semibold text-body">
-              {item.name}
-            </span>
-            {item.note && (
-              <span class="mt-0.5 block text-[13px] leading-[1.5] font-medium text-cardtext">
-                {item.note}
-              </span>
-            )}
-          </span>
-        </li>
+      groups.map((group) => (
+        <div>
+          {group.key && (
+            <h4 class="m-0 mb-3 text-[15px] font-extrabold tracking-[-.01em]">{group.key}</h4>
+          )}
+          <ul
+            class="m-0 grid list-none gap-x-7 gap-y-2.5 p-0"
+            style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))"
+          >
+            {group.items.map((item) => (
+              <li class="flex gap-2.5">
+                <span class:list={['mt-[7px] size-[6px] shrink-0 rounded-full', dot]} aria-hidden="true" />
+                <span class="block">
+                  <span class="block text-[15px] leading-[1.5] font-semibold text-body">
+                    {item.name}
+                  </span>
+                  {item.note && (
+                    <span class="mt-0.5 block text-[13px] leading-[1.5] font-medium text-cardtext">
+                      {item.note}
+                    </span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))
     }
-  </ul>
+  </div>
 </div>
