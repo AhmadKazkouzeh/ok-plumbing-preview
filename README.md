@@ -177,8 +177,10 @@ Everything below is marked with a `TODO` in the source.
   before launch — the count moves.
 - **Team names, roles and bios** — names and roles match the current site
   (Sam, Yaz, Monica); the one-line bios came from the handoff. Confirm all of it.
-- **Photography** — see `CREDITS.md`. Two slots currently imply things that are
-  not true and should be replaced first.
+- **Photography — now the client's own.** All ten photo slots carry photographs
+  from OK Plumbing's own jobs, supplied 1 October 2026; the Unsplash stand-ins
+  have been deleted. The three team portraits are still initials avatars, because
+  nobody has said which engineer is in which photograph. See `CREDITS.md`.
 - **The logo wordmark** — the mark is traced from the client's own artwork, but
   "Plumbing and Heating" is a typeface match, not the original letters. If the
   designer's vector file turns up, the wordmark can be matched exactly. See

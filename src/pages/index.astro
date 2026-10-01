@@ -15,6 +15,7 @@ import {
   REVIEWS,
   SERVICES,
   STEPS,
+  WORK,
 } from '~/data/site';
 
 const faqSchema = {
@@ -90,7 +91,7 @@ const faqSchema = {
       <Photo
         slug="hero-engineer"
         caption="hero photo — engineer at a boiler, portrait crop"
-        alt="A plumber tightening a valve on the pipework above a hot-water cylinder"
+        alt="An OK Plumbing engineer beside a gas boiler with the case off during a strip-out"
         ratio="1/1"
         bordered
         eager
@@ -192,8 +193,8 @@ const faqSchema = {
       <div class="relative min-w-0">
         <Photo
           slug="team-van"
-          caption="photo — team &amp; van outside a London terrace"
-          alt="A service van parked on a London street"
+          caption="photo — the van outside a London terrace"
+          alt="The OK Plumbing and Heating van parked on a London street"
           ratio="1/1"
           width={760}
           sizes="(max-width: 860px) 100vw, 44vw"
@@ -258,6 +259,46 @@ const faqSchema = {
           ))
         }
       </ol>
+    </div>
+  </section>
+
+  <!-- Recent work ------------------------------------------------------ -->
+  <section class="section bg-tint px-6">
+    <div class="mx-auto max-w-[1240px]">
+      <div class="mb-9 flex flex-wrap items-end justify-between gap-5">
+        <div>
+          <p class="eyebrow mb-3.5">Recent work</p>
+          <h2 class="h2 max-w-[20ch]">Jobs we have finished</h2>
+        </div>
+        <p class="m-0 max-w-[44ch] text-[14.5px] leading-[1.6] font-medium text-cardtext">
+          Boilers, cylinders, underfloor manifolds and air conditioning fitted across London.
+          Every photograph here is one of ours.
+        </p>
+      </div>
+
+      <ul class="autogrid m-0 list-none gap-4 p-0" style="--min:260px">
+        {
+          WORK.map((w) => (
+            <li class="overflow-hidden rounded-card border border-ink/9 bg-white">
+              {/* alt is empty on purpose: the caption below carries the same words, and
+                  repeating them makes a screen reader say the sentence twice. */}
+              <Photo
+                slug={w.slug}
+                caption={w.caption}
+                alt=""
+
+                ratio="4/3"
+                radius={0}
+                width={520}
+                sizes="(max-width: 560px) 100vw, (max-width: 1100px) 50vw, 25vw"
+              />
+              <p class="m-0 px-4 py-3.5 text-[13px] leading-[1.5] font-semibold text-cardtext">
+                {w.caption}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 

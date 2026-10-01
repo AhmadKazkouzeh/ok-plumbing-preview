@@ -182,9 +182,9 @@ export const SERVICES: ServiceCategory[] = [
       { name: 'Power flush' },
       { name: 'Underfloor heating' },
     ],
-    photoCaption: 'photo — new combi installed',
+    photoCaption: 'photo — unvented cylinder and manifold, finished plant cupboard',
     photoSlug: 'service-boiler',
-    photoAlt: 'A heating engineer working on pipework in a home',
+    photoAlt: 'An unvented cylinder, zone valves and copper manifold in a finished plant cupboard',
   },
   {
     number: '02',
@@ -234,9 +234,9 @@ export const SERVICES: ServiceCategory[] = [
       { name: 'Boiling, chilled and filtered taps' },
       { name: 'Food waste disposal units' },
     ],
-    photoCaption: 'photo — pipework repair under sink',
+    photoCaption: 'photo — toilet being fitted',
     photoSlug: 'service-plumbing',
-    photoAlt: 'A plumber repairing pipework under a basin',
+    photoAlt: 'An engineer fitting a close-coupled toilet during a refit',
   },
   {
     number: '03',
@@ -279,9 +279,9 @@ export const SERVICES: ServiceCategory[] = [
       { name: 'Acoustic leak tracing' },
       { name: 'Tracer gas' },
     ],
-    photoCaption: 'photo — engineer tracing a leak, thermal camera or acoustic kit',
+    photoCaption: 'photo — excavated drain run during a repair',
     photoSlug: 'service-leak-detection',
-    photoAlt: 'An engineer locating a concealed leak',
+    photoAlt: 'A replaced underground drain run in an excavated trench',
   },
   {
     number: '04',
@@ -313,9 +313,9 @@ export const SERVICES: ServiceCategory[] = [
       { name: 'Planned maintenance contracts for landlords and agents' },
       { name: 'Portfolio CP12 renewals on one invoice' },
     ],
-    photoCaption: 'photo — service check & paperwork',
+    photoCaption: 'photo — gas boiler controls during a safety check',
     photoSlug: 'service-maintenance',
-    photoAlt: 'An engineer completing a checklist on a clipboard',
+    photoAlt: 'An engineer checking the controls inside a gas boiler with the case off',
   },
   {
     number: '05',
@@ -346,9 +346,9 @@ export const SERVICES: ServiceCategory[] = [
       { name: 'Commercial kitchen fit-outs' },
       { name: 'Multi-unit and portfolio refurbishment' },
     ],
-    photoCaption: 'photo — finished bathroom',
+    photoCaption: 'photo — basin waste and tap connections',
     photoSlug: 'service-bathroom',
-    photoAlt: 'A finished modern bathroom with a walk-in shower',
+    photoAlt: 'An engineer fitting the waste and tap connections under a pedestal basin in a tiled bathroom',
   },
   {
     number: '06',
@@ -383,9 +383,9 @@ export const SERVICES: ServiceCategory[] = [
       { name: 'Energy-efficiency upgrades' },
       { name: 'Climate control and smart system integration' },
     ],
-    photoCaption: 'photo — wall unit install, living room',
+    photoCaption: 'photo — condenser unit on an exterior wall',
     photoSlug: 'service-aircon',
-    photoAlt: 'A wall-mounted air conditioning unit in a home',
+    photoAlt: 'An air conditioning condenser unit mounted on an exterior brick wall',
   },
 ];
 
@@ -453,6 +453,49 @@ export const PROMISES = [
  * `meta` is the job type taken from what the review itself describes — no
  * locations are shown, because Google does not publish the reviewer's borough.
  */
+/**
+ * Recent work.
+ *
+ * Photographs of the client's own jobs, supplied October 2026. Captions describe
+ * only what is visible in the frame — no locations, no customer names, no claims
+ * the picture does not support. Add a file to src/assets/photos/ and an entry
+ * here and the home page grid picks it up.
+ */
+export const WORK = [
+  {
+    slug: 'work-copper',
+    caption: 'Copper pipework and zone valves on a heating manifold',
+  },
+  {
+    slug: 'work-plantroom',
+    caption: 'Boiler, unvented cylinder and manifold in one plant cupboard',
+  },
+  {
+    slug: 'work-boiler-ufh',
+    caption: 'New boiler above an underfloor heating manifold and controls',
+  },
+  {
+    slug: 'work-boiler-cylinder',
+    caption: 'System boiler and unvented cylinder in a newly plastered plant room',
+  },
+  {
+    slug: 'work-cylinder-cupboard',
+    caption: 'Unvented cylinder fitted above the washing machine in a hall cupboard',
+  },
+  {
+    slug: 'work-cylinder-board',
+    caption: 'Unvented cylinder with the underfloor manifold boarded out beside it',
+  },
+  {
+    slug: 'work-radiator',
+    caption: 'A radiator refitted during a flat refurbishment',
+  },
+  {
+    slug: 'work-aircon-indoor',
+    caption: 'A wall-mounted air conditioning unit in a living space',
+  },
+] as const;
+
 export const REVIEWS = [
   {
     quote:

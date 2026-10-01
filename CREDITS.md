@@ -1,48 +1,45 @@
 # Photography credits and replacement notes
 
-All photographs currently on the site are **stand-ins** sourced from
-[Unsplash](https://unsplash.com) under the
-[Unsplash License](https://unsplash.com/license) — free for commercial use, no
-attribution required, no licence to clear. They are here so the site does not
-launch full of grey boxes; they are not photographs of OK Plumbing and Heating.
+Every photograph on the site is **the client's own**, supplied by Ahmad on
+1 October 2026 from OK Plumbing and Heating's own jobs. No stock photography is
+used anywhere. The previous Unsplash stand-ins have all been deleted from the
+repository.
+
+Processing applied to each one: a crop to the slot's aspect ratio, a mild
+auto-levels pass (two of them were badly backlit), a small saturation and
+contrast lift and an unsharp mask, then export to WebP at quality 86. Originals
+are the client's; nothing was retouched beyond exposure, and nothing was added to
+or removed from any frame.
 
 Replacing one is a single step: drop a new file over the matching name in
 `src/assets/photos/` and rebuild. Nothing else changes.
 
-| File in `src/assets/photos/` | Used on | Unsplash photo ID |
+| File in `src/assets/photos/` | Used on | What the photograph shows |
 | --- | --- | --- |
-| `hero-engineer.webp` | Home hero (4:5) | `photo-1620653713380-7a34b773fef8` |
-| `team-van.webp` | Home — "Why us" (1:1) | `photo-1591706515036-cb0f48dc5e62` |
-| `service-boiler.webp` | Services row 01 (16:10) | `photo-1676210134190-3f2c0d5cf58d` |
-| `service-heating.webp` | Services row 02 (16:10) | `photo-1669725341213-7379ff6c90d5` |
-| `service-plumbing.webp` | Services row 03 (16:10) | `photo-1676210133055-eab6ef033ce3` |
-| `service-maintenance.webp` | Services row 04 (16:10) | `photo-1700727448575-6f1680cd7d75` |
-| `service-bathroom.webp` | Services row 05 (16:10) | `photo-1584622650111-993a426fbf0a` |
-| `service-aircon.webp` | Services row 06 (16:10) | `photo-1761330440311-16e160cad236` — re-cropped 16 Sept 2026; the first crop cut the top off the wall unit |
-| `boiler-hero.webp` | Boilers page hero (4:3) | `photo-1749532125405-70950966b0e5` |
-| `about-team.webp` | About — "How we work" (4:3) | `photo-1787672358313-4534ed75f53e` |
+| `hero-engineer.webp` | Home hero (1:1) | Engineer beside a gas boiler with the case off, during a strip-out |
+| `team-van.webp` | Home — "Why us" (1:1) | The OK Plumbing and Heating van, livery and phone number legible |
+| `service-boiler.webp` | Boilers & Heating card and page | Unvented cylinder, zone valves and copper manifold in a finished plant cupboard |
+| `service-plumbing.webp` | Plumbing card and page | Engineer fitting a close-coupled toilet |
+| `service-leak-detection.webp` | Leak Detection card and page | Replaced underground drain run in an excavated trench |
+| `service-maintenance.webp` | Gas Safety card and page | Engineer at the controls inside a gas boiler |
+| `service-bathroom.webp` | Bathrooms & Kitchens card and page | Engineer fitting the waste and tap connections under a pedestal basin |
+| `service-aircon.webp` | Air Conditioning card and page | Condenser unit mounted on an exterior brick wall |
+| `boiler-hero.webp` | Boilers page hero (4:3) | Vaillant combi with new copper pipework on a brick wall |
+| `about-team.webp` | About — "How we work" (4:3) | Engineer draining and refitting a radiator |
 
-Any ID above resolves at `https://unsplash.com/photos/<id>` (strip the leading
-`photo-`, or search the ID) and the file itself at
-`https://images.unsplash.com/<id>`.
+Alt text describes what is actually in each frame, not what the slot wishes were
+there.
 
-## Replace these before launch
+## Still to come
 
-**Priority — these imply things that are not true:**
+The client supplied 40 photographs; 10 are in use. The rest — more plant rooms,
+cylinders, van shots and radiator work — are good enough to carry a "recent work"
+gallery if one is added later.
 
-1. `about-team.webp` and `team-van.webp` sit in slots that describe *OK Plumbing's
-   own team and van*. The stock people and vehicle in them are not yours. Swap in
-   real photographs, or the page is telling customers something untrue about who
-   turns up.
-2. `hero-engineer.webp` — replaced on 16 September 2026. The original stand-in
-   showed a man in a hard hat with folded arms, which read as a construction site
-   rather than a plumber. It is now a close-up of a plumber's hands tightening a
-   valve on the pipework above a hot-water cylinder — unmistakably plumbing and
-   heating work, and deliberately faceless so it does not imply "this is your
-   engineer". A real photo of one of your own engineers at a boiler would still
-   convert better.
-   Photo by Marian Florinel Condruz (@gottapics),
-   <https://unsplash.com/photos/C-oYJoIfgCs>.
+**Faces.** Several photographs show the same engineer working. They are used in
+the service and hero slots, where the alt text says only "an engineer". None is
+captioned with a name, because nobody has told us which of Sam, Yaz or Monica is
+in them. Confirm that and the team portraits below can use real faces.
 
 **Still empty, showing the captioned placeholder:**
 
