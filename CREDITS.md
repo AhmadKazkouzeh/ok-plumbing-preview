@@ -16,7 +16,7 @@ Replacing one is a single step: drop a new file over the matching name in
 
 | File in `src/assets/photos/` | Used on | What the photograph shows |
 | --- | --- | --- |
-| `hero-engineer.webp` | Home hero (1:1) | Engineer beside a gas boiler with the case off, during a strip-out |
+| `hero-pipework.webp` | Home hero (4:3) | Copper pipework, zone valves and pump on a finished manifold |
 | `team-van.webp` | Home — "Why us" (1:1) | The OK Plumbing and Heating van, livery and phone number legible |
 | `service-boiler.webp` | Boilers & Heating card and page | Unvented cylinder, zone valves and copper manifold in a finished plant cupboard |
 | `service-plumbing.webp` | Plumbing card and page | Engineer fitting a close-coupled toilet |
@@ -32,7 +32,14 @@ there.
 
 ## Still to come
 
-The client supplied 40 photographs; 10 are in use. The rest — more plant rooms,
+The client supplied 40 photographs; 18 are in use. The hero changed on
+18 October 2026 from the strip-out photograph to the copper manifold, at the
+client's direction; the strip-out photograph moved into the recent-work grid.
+Both were cropped from the already-processed copies rather than the originals,
+which were no longer to hand — if the hero needs to be sharper on a retina
+screen, re-process `hero-pipework.webp` from the original frame.
+
+The client supplied 40 photographs; 18 are in use. The rest — more plant rooms,
 cylinders, van shots and radiator work — are good enough to carry a "recent work"
 gallery if one is added later.
 

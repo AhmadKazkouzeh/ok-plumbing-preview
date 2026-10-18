@@ -457,8 +457,8 @@ export const PROMISES = [
  */
 export const WORK = [
   {
-    slug: 'work-copper',
-    caption: 'Copper pipework and zone valves on a heating manifold',
+    slug: 'work-boiler-engineer',
+    caption: 'An old gas boiler opened up at the start of a strip-out',
   },
   {
     slug: 'work-plantroom',
