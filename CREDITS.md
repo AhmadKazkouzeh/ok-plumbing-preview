@@ -38,19 +38,13 @@ gallery if one is added later.
 
 **Faces.** Several photographs show the same engineer working. They are used in
 the service and hero slots, where the alt text says only "an engineer". None is
-captioned with a name, because nobody has told us which of Sam, Yaz or Monica is
-in them. Confirm that and the team portraits below can use real faces.
+captioned with a name, and no page names the people who work here: the team
+section was removed on 18 October 2026 at the client's request, along with the
+initials avatars that stood in for portraits and the ones beside the Google
+reviewers. There is nothing left on the site that needs a face.
 
 **Still empty, showing the captioned placeholder:**
 
-- Three team portraits — Sam, Yaz, Monica (`team-sam`, `team-yaz`, `team-monica`).
-  These now show **initials avatars**, not the hatched placeholder, so the page
-  looks finished. Still no stock faces: putting a stranger's photograph next to a
-  real named person misrepresents who turns up. Drop a real photo into
-  `src/assets/photos/team-sam.webp` (or .jpg) and it takes over automatically.
-- Testimonial avatars — done, initials on a brand colour. These sit beside real
-  Google reviewers' names, so a stock face would be worse here than anywhere:
-  leave them as initials.
 - ~~Coverage map and contact map~~ — done. Both slots now use `Map.astro`, a
   Google Maps embed pinned on central London (see README).
 - ~~The official **Gas Safe Register** logo~~ — done, see "The Gas Safe Register

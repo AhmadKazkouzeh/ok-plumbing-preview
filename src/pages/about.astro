@@ -2,7 +2,7 @@
 import Base from '~/layouts/Base.astro';
 import PageHeader from '~/components/PageHeader.astro';
 import Photo from '~/components/Photo.astro';
-import { BUSINESS, TEAM } from '~/data/site';
+import { BUSINESS } from '~/data/site';
 ---
 
 <Base
@@ -45,37 +45,4 @@ import { BUSINESS, TEAM } from '~/data/site';
     </div>
   </section>
 
-  <section id="team" class="section-sm bg-tint px-6 scroll-mt-24">
-    <div class="mx-auto max-w-[1240px]">
-      <h2 class="h2-sub mb-8">The team</h2>
-
-      {/* TODO: confirm team names, roles and bios with the client. */}
-      <ul class="autogrid m-0 list-none gap-5 p-0" style="--min:240px">
-        {
-          TEAM.map((member) => (
-            <li class="overflow-hidden rounded-card border border-ink/9 bg-white">
-              <Photo
-                slug={member.photoSlug}
-                caption={`portrait — ${member.name}`}
-                alt={`${member.name}, ${member.role} at OK Plumbing and Heating`}
-                initials={member.name}
-                ratio="1/1"
-                radius={0}
-                width={420}
-                sizes="(max-width: 860px) 100vw, 25vw"
-              />
-              <div class="p-5">
-                <p class="m-0 text-[18px] font-extrabold tracking-[-.015em]">{member.name}</p>
-                <p class="m-0 mt-0.5 text-[13.5px] font-bold text-blue">{member.role}</p>
-                <p class="m-0 mt-2.5 text-sm leading-[1.6] font-medium text-cardtext">
-                  {member.bio}
-                </p>
-              </div>
-            </li>
-          ))
-        }
-
-      </ul>
-    </div>
-  </section>
 </Base>

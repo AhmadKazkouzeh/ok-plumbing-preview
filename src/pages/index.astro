@@ -4,7 +4,6 @@ import Icon from '~/components/Icon.astro';
 import Photo from '~/components/Photo.astro';
 import Map from '~/components/Map.astro';
 import GasSafeMark from '~/components/GasSafeMark.astro';
-import Avatar from '~/components/Avatar.astro';
 import Stars from '~/components/Stars.astro';
 import {
   BOROUGH_CHIPS,
@@ -325,12 +324,9 @@ const faqSchema = {
               <blockquote class="m-0 mb-[22px] text-base leading-[1.6] font-medium">
                 {r.quote}
               </blockquote>
-              <div class="flex items-center gap-3">
-                <Avatar name={r.name} size={38} />
-                <span class="block">
-                  <span class="block text-sm font-bold">{r.name}</span>
-                  <span class="block text-[12.5px] font-semibold text-tint/55">{r.meta}</span>
-                </span>
+              <div>
+                <p class="m-0 text-sm font-bold">{r.name}</p>
+                <p class="m-0 mt-0.5 text-[12.5px] font-semibold text-tint/55">{r.meta}</p>
               </div>
             </li>
           ))

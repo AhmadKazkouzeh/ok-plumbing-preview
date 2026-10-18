@@ -11,7 +11,6 @@
  * Nothing else has to change when photography arrives — just add the file.
  */
 import { Image } from 'astro:assets';
-import Avatar from './Avatar.astro';
 
 interface Props {
   /** Filename stem under src/assets/photos, e.g. "hero-engineer". */
@@ -30,12 +29,6 @@ interface Props {
   bordered?: boolean;
   /** Above the fold — skip lazy-loading. */
   eager?: boolean;
-  /**
-   * A person's name. With no photograph in place, the slot shows their initials
-   * on a brand colour instead of the hatched placeholder — honest next to a real
-   * name in a way that a stock face would not be, and it looks finished.
-   */
-  initials?: string;
   /** Rendered width hint for the image pipeline. */
   width?: number;
   sizes?: string;
@@ -51,7 +44,6 @@ const {
   radius = 16,
   bordered = false,
   eager = false,
-  initials,
   width = 900,
   sizes = '(max-width: 860px) 100vw, 50vw',
   class: className = '',
@@ -99,10 +91,6 @@ const frameStyle = [
         fetchpriority={eager ? 'high' : 'auto'}
         class="h-full w-full object-cover"
       />
-    </div>
-  ) : initials ? (
-    <div class={frame} style={frameStyle}>
-      <Avatar name={initials} shape="block" />
     </div>
   ) : (
     <div

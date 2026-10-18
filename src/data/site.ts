@@ -608,30 +608,6 @@ export const FAQS = [
   },
 ] as const;
 
-// TODO: confirm team names, roles and bios with the client.
-// Names and roles below match the current okplumbing.co.uk team section;
-// the one-line bios come from the design handoff and are illustrative.
-export const TEAM = [
-  {
-    name: 'Sam',
-    role: 'Gas engineer · founder',
-    bio: 'Boilers and heating systems. Started the business in 2010.',
-    photoSlug: 'team-sam',
-  },
-  {
-    name: 'Yaz',
-    role: 'Plumber',
-    bio: 'Leaks, bathrooms and repairs across West London.',
-    photoSlug: 'team-yaz',
-  },
-  {
-    name: 'Monica',
-    role: 'Office manager',
-    bio: 'Bookings, quotes and landlord certificate schedules.',
-    photoSlug: 'team-monica',
-  },
-] as const;
-
 export const BOILER_JOBS = [
   {
     title: 'Full boiler replacement',
@@ -662,7 +638,6 @@ export const FOOTER_SERVICE_LINKS = SERVICES.map((s) => ({
 
 export const FOOTER_COMPANY_LINKS = [
   { label: 'About us', href: '/about/' },
-  { label: 'Our team', href: '/about/#team' },
   { label: 'Areas covered', href: '/#coverage' },
   { label: 'Contact', href: '/contact/' },
 ] as const;

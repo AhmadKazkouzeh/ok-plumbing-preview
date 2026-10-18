@@ -175,12 +175,14 @@ Everything below is marked with a `TODO` in the source.
   so reorder that list to change which appear. `aggregateRating` structured data
   now emits, because there is a genuine count behind it. Re-check the figures
   before launch — the count moves.
-- **Team names, roles and bios** — names and roles match the current site
-  (Sam, Yaz, Monica); the one-line bios came from the handoff. Confirm all of it.
-- **Photography — now the client's own.** All ten photo slots carry photographs
+- **No team section.** The About page's team cards (Sam, Yaz, Monica), the
+  `TEAM` data, the "Our team" footer link and the initials avatars were all
+  removed on 18 October 2026 at the client's request. The avatars are gone from
+  the Google review cards too, and `Avatar.astro` with them. Nothing on the site
+  names an individual now — worth knowing before writing copy that does.
+- **Photography — the client's own.** All ten photo slots carry photographs
   from OK Plumbing's own jobs, supplied 1 October 2026; the Unsplash stand-ins
-  have been deleted. The three team portraits are still initials avatars, because
-  nobody has said which engineer is in which photograph. See `CREDITS.md`.
+  have been deleted. See `CREDITS.md`.
 - **The logo wordmark** — the mark is traced from the client's own artwork, but
   "Plumbing and Heating" is a typeface match, not the original letters. If the
   designer's vector file turns up, the wordmark can be matched exactly. See
