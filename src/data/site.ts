@@ -37,17 +37,11 @@ export const BUSINESS = {
     saturday: 'Sat 9am–2pm',
     closed: 'Closed Sundays and bank holidays',
   },
-  // TODO: set the real Gas Safe registration number before launch. Sam can read it
-  // off the Gas Safe business portal dashboard, or Gas Safe will confirm it by email
-  // (register@gassaferegister.co.uk).
-  //
-  // Deliberately null, not a placeholder: the handoff's `512345` is not this
-  // business's number, and a registration number is the thing customers are told to
-  // check before letting anyone touch their gas. Every place that shows it degrades
-  // to a plain "Gas Safe registered" while this is null, so nothing false ships.
-  // Set it here and the number reappears in the top bar, trust strip, mobile
-  // drawer, footer and terms page at once.
-  gasSafeNumber: null as string | null,
+  // Supplied by the client, 18 October 2026. The handoff's `512345` was a
+  // placeholder and was never shipped. This number prints in the top bar, trust
+  // strip, mobile drawer, footer and terms page; set it back to null and all five
+  // degrade to a plain "Gas Safe registered" rather than showing anything false.
+  gasSafeNumber: '598577' as string | null,
   // Read off the live Google Business Profile ("Ok Plumbing and Heating",
   // on 16 September 2026: 5.0 from 37 reviews.
   // Re-check before launch — the count moves, and aggregateRating structured data

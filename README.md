@@ -157,13 +157,12 @@ tests/                  browser test suite (see tests/README.md)
 
 Everything below is marked with a `TODO` in the source.
 
-- **Gas Safe registration number** — `BUSINESS.gasSafeNumber` is `null`. The
-  handoff's `512345` is not this business's number, so it has been taken off the
-  site rather than shipped; the register was searched three ways on 16 September
-  2026 without a match (see `CREDITS.md`). Every place that would print it now
-  reads plain "Gas Safe registered". Set the real number in `src/data/site.ts`
-  and it returns to the top bar, trust strip, mobile drawer, footer and
-  terms page at once.
+- **Gas Safe registration number — set and verified.** `BUSINESS.gasSafeNumber`
+  is `598577`, supplied by the client on 18 October 2026 and checked against the
+  public register the same day: registered, status active (see `CREDITS.md` for
+  the one caveat about the name it is registered under). It prints in the top
+  bar, trust strip, mobile drawer, footer and terms page. Setting it back to
+  `null` degrades all five to a plain "Gas Safe registered".
 - **The Gas Safe mark itself is in and rendering** — `public/gas-safe.svg`, a
   vector trace of the official artwork from Gas Safe Register's own asset host.
   Swap in the licensed pack from the client's Gas Safe business portal by

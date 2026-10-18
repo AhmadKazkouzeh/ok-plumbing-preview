@@ -151,22 +151,24 @@ own brand guidance asks for.
 
 ### The registration number
 
-`BUSINESS.gasSafeNumber` is deliberately `null`, not a number.
+`BUSINESS.gasSafeNumber` is **598577**, supplied by the client on 18 October 2026.
 
-The design handoff carried `512345`. That is not this business's number. On
-16 September 2026 the public register was searched three ways — "OK Plumbing and
-Heating" and "OK Plumbing" by name, both returning "we cannot find a Business
-with a name of…", and by postcode W14 0AS for domestic work, which returned the
-50 nearest registered businesses (0.14 to 0.87 miles) with no entry at Richmond
-Way. That is **not** evidence of non-registration: the register lists the
-*registered* trading name and address, which for a sole trader is often the
-engineer's own name and home address, and the postcode search was filtered to
-domestic work.
+It was checked against the public register the same day, through the "Check a
+business" search at gassaferegister.co.uk: the number resolves to a registered
+business with status **Registered**. The design handoff's `512345` was a
+placeholder and never shipped.
 
-The definitive routes are the Gas Safe business portal dashboard, or
-register@gassaferegister.co.uk, who confirm a business's status on request.
+**One thing to know before launch.** The register lists this registration under
+the owner's own name as a sole trader, not under the trading name "OK Plumbing
+and Heating". That is why the September searches for the trading name came back
+"we cannot find a Business with a name of…" — the business was registered the
+whole time, under a different name. A customer who follows the "verify on the
+register" link and searches 598577 will therefore see a name that does not match
+the one on the website. Worth deciding whether the site should say so in a line
+of small print; nothing on the site claims otherwise today, but the mismatch is
+the kind of thing a cautious customer notices.
 
-While `gasSafeNumber` is `null` every place that would print it degrades to a
-plain "Gas Safe registered" — top bar, trust strip, mobile drawer, footer
-and terms page. Set the real number in `src/data/site.ts` and all five come back
-at once.
+The register entry also carries the owner's home address and personal contact
+details, as sole-trader entries do. None of that is published on this site, and
+it should stay that way: the site is deliberately a service-area business with no
+street address anywhere.
