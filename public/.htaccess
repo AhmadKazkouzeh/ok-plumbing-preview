@@ -5,6 +5,8 @@
 # Custom 404. Without this Apache serves its own error page and dist/404.html
 # is never used.
 # ---------------------------------------------------------------------------
+Options -Indexes
+
 ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
@@ -34,6 +36,7 @@ ErrorDocument 404 /404.html
   AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
   AddOutputFilterByType DEFLATE application/javascript application/json
   AddOutputFilterByType DEFLATE application/xml image/svg+xml
+  AddOutputFilterByType DEFLATE text/javascript
 </IfModule>
 
 # ---------------------------------------------------------------------------
@@ -43,29 +46,32 @@ ErrorDocument 404 /404.html
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 0 seconds"
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType image/avif "access plus 1 year"
-  ExpiresByType image/png "access plus 1 year"
-  ExpiresByType image/jpeg "access plus 1 year"
-  ExpiresByType image/svg+xml "access plus 1 month"
-  ExpiresByType font/woff2 "access plus 1 year"
+  # Unhashed names — a day, so a replacement reaches people within a day.
+  ExpiresByType image/png "access plus 1 day"
+  ExpiresByType image/jpeg "access plus 1 day"
+  ExpiresByType image/svg+xml "access plus 1 day"
 </IfModule>
 
 <IfModule mod_headers.c>
-  <FilesMatch "\.(css|js|webp|avif|woff2)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
-  </FilesMatch>
+  # Hashed filenames only: a new build means a new name, so these can never go
+  # stale. Scoped by path, not extension — everything outside /_astro/ keeps
+  # its name across deploys.
+  <IfModule mod_setenvif.c>
+    SetEnvIf Request_URI "^/_astro/" HASHED_ASSET=1
+    Header set Cache-Control "public, max-age=31536000, immutable" env=HASHED_ASSET
+  </IfModule>
+
   <FilesMatch "\.html$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 
-  # Modest security headers. No CSP here — the site loads nothing third-party,
-  # but adding one blind would break the form endpoint when it is wired up.
-  Header set X-Content-Type-Options "nosniff"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
-  Header set X-Frame-Options "SAMEORIGIN"
+  # Security headers. `always`, so they are set on error responses too — the
+  # 404 body is served for every missing URL and would otherwise ship bare.
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # HTTPS is already forced above; this stops the first redirect being needed.
+  Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>
 
 # Correct types for the fonts and modern image formats.
