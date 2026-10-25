@@ -20,18 +20,21 @@ type Rule = (value: string) => string | null;
 
 const required = (label: string): Rule => (v) => (v.trim() ? null : `${label} is required.`);
 
+// Keyed by the field's `name`. Those names are deliberately human-readable
+// with spaces: the form provider uses them verbatim as the labels in the
+// enquiry email, so "Job type" reads better to whoever opens it than "need".
 const RULES: Record<string, Rule[]> = {
-  name: [required('Name')],
-  firstName: [required('First name')],
-  phone: [
+  Name: [required('Name')],
+  'First name': [required('First name')],
+  Phone: [
     required('Phone'),
     (v) => (UK_PHONE.test(v.replace(/[\s()-]/g, '')) ? null : 'Enter a UK phone number.'),
   ],
-  postcode: [
+  Postcode: [
     required('Postcode'),
     (v) => (UK_POSTCODE.test(v.trim()) ? null : 'Enter a valid UK postcode.'),
   ],
-  email: [
+  Email: [
     (v) => (!v.trim() || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v) ? null : 'Enter a valid email.'),
   ],
 };
@@ -66,7 +69,7 @@ function enhance(form: HTMLFormElement) {
 
   const fields = Array.from(
     form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input[name], textarea[name]')
-  ).filter((f) => f.type !== 'radio' && f.type !== 'hidden' && !f.dataset.honeypot);
+  ).filter((f) => f.type !== 'radio' && f.type !== 'hidden' && !f.hasAttribute('data-honeypot'));
 
   const status = form.querySelector<HTMLElement>('[data-form-status]');
   const success = form.querySelector<HTMLElement>('[data-form-success]');
@@ -92,9 +95,11 @@ function enhance(form: HTMLFormElement) {
     event.preventDefault();
     setStatus('', 'info');
 
-    // Honeypot: a real person never fills this in.
+    // Honeypot: a real person never ticks this. Checked, not `.value` — an
+    // unchecked checkbox still reports "on", which would block every genuine
+    // submission.
     const honeypot = form.querySelector<HTMLInputElement>('[data-honeypot]');
-    if (honeypot?.value) return;
+    if (honeypot?.checked) return;
 
     let firstInvalid: (HTMLInputElement | HTMLTextAreaElement) | null = null;
     for (const field of fields) {

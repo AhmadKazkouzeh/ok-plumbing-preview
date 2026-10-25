@@ -38,12 +38,16 @@ const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? '';
   <input type="hidden" name="subject" value={subject} />
   <input type="hidden" name="_source" value={Astro.url.pathname} />
 
-  {/* Honeypot: off-screen for people, irresistible to bots. Not aria-hidden —
-      a focusable element inside an aria-hidden container is an a11y violation. */}
+  {/* Honeypot: off-screen for people, irresistible to bots. Named `botcheck`
+      because that is the provider's own convention — it rejects the submission
+      server-side when the field is filled, and keeps it out of the enquiry
+      email. The browser-side check below is then belt and braces rather than
+      the only defence. Not aria-hidden — a focusable element inside an
+      aria-hidden container is an a11y violation. */}
   <div class="absolute -left-[9999px] h-px w-px overflow-hidden">
     <label>
       Leave this field empty
-      <input type="text" name="company_website" tabindex="-1" autocomplete="off" data-honeypot />
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" data-honeypot />
     </label>
   </div>
 

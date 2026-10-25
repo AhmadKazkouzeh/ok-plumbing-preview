@@ -18,15 +18,15 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
   await page.click('button[type="submit"]');
   await page.waitForTimeout(300);
   const errs = await page.$$eval('.field-error:visible', (n) => n.map((e) => e.textContent.trim()));
-  if (errs.length !== 3) note('BUG', 'form', `empty submit showed ${errs.length} errors, expected 3 (firstName, phone, postcode). Got: ${JSON.stringify(errs)}`);
+  if (errs.length !== 3) note('BUG', 'form', `empty submit showed ${errs.length} errors, expected 3 (First name, Phone, Postcode). Got: ${JSON.stringify(errs)}`);
 
   const focused = await page.evaluate(() => document.activeElement?.getAttribute('name'));
-  if (focused !== 'firstName') note('MINOR', 'form', `after failed submit, focus went to "${focused}" not the first invalid field`);
+  if (focused !== 'First name') note('MINOR', 'form', `after failed submit, focus went to "${focused}" not the first invalid field`);
 
   // aria-invalid should be set, and the error should be announced via aria-describedby.
   const ariaState = await page.evaluate(() => {
-    const f = document.querySelector('input[name="phone"]');
-    const err = document.querySelector('[data-error-for="phone"]');
+    const f = document.querySelector('input[name="Phone"]');
+    const err = document.querySelector('[data-error-for="Phone"]');
     return {
       invalid: f.getAttribute('aria-invalid'),
       describedby: f.getAttribute('aria-describedby'),
@@ -45,10 +45,10 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
     ['12345', false], ['abcdefghijk', false], ['004474444191', false],
   ];
   for (const [val, shouldPass] of phoneCases) {
-    await page.fill('input[name="phone"]', val);
-    await page.evaluate(() => document.querySelector('input[name="phone"]').blur());
+    await page.fill('input[name="Phone"]', val);
+    await page.evaluate(() => document.querySelector('input[name="Phone"]').blur());
     await page.waitForTimeout(80);
-    const msg = await page.$eval('[data-error-for="phone"]', (e) => (e.hidden ? '' : e.textContent.trim()));
+    const msg = await page.$eval('[data-error-for="Phone"]', (e) => (e.hidden ? '' : e.textContent.trim()));
     const passed = msg === '';
     if (passed !== shouldPass)
       note(shouldPass ? 'BUG' : 'MINOR', 'form', `phone "${val}" ${passed ? 'accepted' : 'rejected'}, expected ${shouldPass ? 'accepted' : 'rejected'}`);
@@ -57,18 +57,18 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
   // UK postcode
   const pcCases = [['W14 0AS', true], ['w140as', true], ['EC1A 1BB', true], ['SW1A1AA', true], ['12345', false], ['ZZZ', false]];
   for (const [val, shouldPass] of pcCases) {
-    await page.fill('input[name="postcode"]', val);
-    await page.evaluate(() => document.querySelector('input[name="postcode"]').blur());
+    await page.fill('input[name="Postcode"]', val);
+    await page.evaluate(() => document.querySelector('input[name="Postcode"]').blur());
     await page.waitForTimeout(80);
-    const msg = await page.$eval('[data-error-for="postcode"]', (e) => (e.hidden ? '' : e.textContent.trim()));
+    const msg = await page.$eval('[data-error-for="Postcode"]', (e) => (e.hidden ? '' : e.textContent.trim()));
     const passed = msg === '';
     if (passed !== shouldPass) note('BUG', 'form', `postcode "${val}" ${passed ? 'accepted' : 'rejected'}, expected ${shouldPass ? 'accepted' : 'rejected'}`);
   }
 
   // Radio groups must be real inputs with a checked default.
   const radios = await page.evaluate(() => {
-    const need = [...document.querySelectorAll('input[name="need"]')];
-    const when = [...document.querySelectorAll('input[name="when"]')];
+    const need = [...document.querySelectorAll('input[name="Job type"]')];
+    const when = [...document.querySelectorAll('input[name="Timing"]')];
     return {
       needCount: need.length,
       whenCount: when.length,
@@ -83,9 +83,9 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
   if (radios.whenChecked !== 'Within a week') note('BUG', 'form', `default when is "${radios.whenChecked}", design says Within a week`);
 
   // Selecting a chip by keyboard should work.
-  await page.focus('input[name="need"][value="Bathroom"]');
+  await page.focus('input[name="Job type"][value="Bathroom"]');
   await page.keyboard.press('Space');
-  const afterKey = await page.evaluate(() => document.querySelector('input[name="need"]:checked')?.value);
+  const afterKey = await page.evaluate(() => document.querySelector('input[name="Job type"]:checked')?.value);
   if (afterKey !== 'Bathroom') note('BUG', 'form', `keyboard selection of a chip did not take (checked = ${afterKey})`);
 
   // Honeypot must exist, be non-tabbable, and block submission when filled.
@@ -102,9 +102,9 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
   }
 
   // Endpoint behaviour: with no endpoint configured, submitting a valid form must not silently lose the enquiry.
-  await page.fill('input[name="firstName"]', 'Test');
-  await page.fill('input[name="phone"]', '07444419144');
-  await page.fill('input[name="postcode"]', 'W14 0AS');
+  await page.fill('input[name="First name"]', 'Test');
+  await page.fill('input[name="Phone"]', '07444419144');
+  await page.fill('input[name="Postcode"]', 'W14 0AS');
   await page.click('button[type="submit"]');
   await page.waitForTimeout(500);
   const status = await page.$eval('[data-form-status]', (e) => (e.hidden ? '' : e.textContent.trim()));
@@ -151,7 +151,7 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
     }))
   );
   for (const f of fields) if (!f.labelled) note('BUG', 'a11y', `survey form field "${f.name}" has no associated label`);
-  for (const n of ['name', 'phone', 'postcode'])
+  for (const n of ['Name', 'Phone', 'Postcode'])
     if (!fields.find((f) => f.name === n)?.required) note('BUG', 'form', `survey field "${n}" is not required`);
 
   await page.click('form[data-form] button[type="submit"]');

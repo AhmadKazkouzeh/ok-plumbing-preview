@@ -44,20 +44,20 @@ const WHEN = ['As soon as possible', 'Within a week', 'Just quoting'];
                 First name
                 <input
                   type="text"
-                  name="firstName"
+                  name="First name"
                   required
                   autocomplete="given-name"
                   placeholder="Jane"
                   class="field"
                 />
               </label>
-              <p class="field-error mt-1.5" data-error-for="firstName" hidden></p>
+              <p class="field-error mt-1.5" data-error-for="First name" hidden></p>
             </div>
             <label class="field-label">
               Last name
               <input
                 type="text"
-                name="lastName"
+                name="Last name"
                 autocomplete="family-name"
                 placeholder="Okonkwo"
                 class="field"
@@ -71,27 +71,27 @@ const WHEN = ['As soon as possible', 'Within a week', 'Just quoting'];
                 Phone
                 <input
                   type="tel"
-                  name="phone"
+                  name="Phone"
                   required
                   autocomplete="tel"
                   placeholder="07000 000000"
                   class="field"
                 />
               </label>
-              <p class="field-error mt-1.5" data-error-for="phone" hidden></p>
+              <p class="field-error mt-1.5" data-error-for="Phone" hidden></p>
             </div>
             <div>
               <label class="field-label">
                 Email
                 <input
                   type="email"
-                  name="email"
+                  name="Email"
                   autocomplete="email"
                   placeholder="jane@example.com"
                   class="field"
                 />
               </label>
-              <p class="field-error mt-1.5" data-error-for="email" hidden></p>
+              <p class="field-error mt-1.5" data-error-for="Email" hidden></p>
             </div>
           </div>
 
@@ -101,20 +101,20 @@ const WHEN = ['As soon as possible', 'Within a week', 'Just quoting'];
                 Postcode
                 <input
                   type="text"
-                  name="postcode"
+                  name="Postcode"
                   required
                   autocomplete="postal-code"
                   placeholder="e.g. SW6 1AB"
                   class="field"
                 />
               </label>
-              <p class="field-error mt-1.5" data-error-for="postcode" hidden></p>
+              <p class="field-error mt-1.5" data-error-for="Postcode" hidden></p>
             </div>
             <label class="field-label">
               Property
               <input
                 type="text"
-                name="property"
+                name="Property type"
                 placeholder="Flat, house, commercial"
                 class="field"
               />
@@ -127,7 +127,7 @@ const WHEN = ['As soon as possible', 'Within a week', 'Just quoting'];
               {
                 NEEDS.map((need, i) => (
                   <label class="chip relative">
-                    <input type="radio" name="need" value={need} checked={i === 0} />
+                    <input type="radio" name="Job type" value={need} checked={i === 0} />
                     <span>{need}</span>
                   </label>
                 ))
@@ -141,7 +141,7 @@ const WHEN = ['As soon as possible', 'Within a week', 'Just quoting'];
               {
                 WHEN.map((when) => (
                   <label class="pick relative">
-                    <input type="radio" name="when" value={when} checked={when === 'Within a week'} />
+                    <input type="radio" name="Timing" value={when} checked={when === 'Within a week'} />
                     <span>{when}</span>
                   </label>
                 ))
@@ -152,7 +152,7 @@ const WHEN = ['As soon as possible', 'Within a week', 'Just quoting'];
           <label class="field-label">
             Details
             <textarea
-              name="details"
+              name="Details"
               rows="4"
               placeholder="Worcester combi, 9 years old, losing pressure every few days."
               class="field resize-y"></textarea>
