@@ -218,8 +218,16 @@ Everything below is marked with a `TODO` in the source.
 
 - **No prices anywhere.** The client quotes on survey only; the boiler FAQ answers
   the cost question by describing the survey-and-fixed-quote process instead.
-- **Air conditioning is install-only** — split/multi-split and ducted. No
-  servicing, regas, heat pumps or F-Gas claims.
+- **Certifications confirmed by the client, 25 October 2026.** F-Gas (so air
+  conditioning servicing, repairs and refrigerant checks are advertised),
+  commercial gas tickets CODNCO1/COMCAT (so commercial gas certification,
+  commercial appliance and catering appliance work are advertised), and G3 (so
+  unvented hot water cylinder installation is advertised). The "to confirm"
+  notes that sat against those ten service lines have been removed. If any
+  lapses, the lines to pull are in `SERVICES` in `src/data/site.ts` — AC
+  servicing/repairs/refrigerant, the commercial gas items, and unvented
+  cylinders.
+- **Heat pumps are still not claimed anywhere**, and shouldn't be without MCS.
 - **Orange buttons use dark `#0E1621` text, not white.** This is deliberate: it is
   what clears 4.5:1 contrast on `#F2701D`.
 - **One breakpoint, at 860px.** Everything else is fluid — `auto-fit` grids and
