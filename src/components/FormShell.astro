@@ -15,6 +15,9 @@ interface Props {
 
 const { subject, successTitle, successBody, class: className = '' } = Astro.props;
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+// Web3Forms identifies the form by a public access key posted with the fields.
+// It is meant to be visible in the page source; it is not a secret.
+const accessKey = import.meta.env.PUBLIC_FORM_ACCESS_KEY ?? '';
 ---
 
 {/*
@@ -31,7 +34,8 @@ const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
   action={endpoint || undefined}
   class={className}
 >
-  <input type="hidden" name="_subject" value={subject} />
+  {accessKey && <input type="hidden" name="access_key" value={accessKey} />}
+  <input type="hidden" name="subject" value={subject} />
   <input type="hidden" name="_source" value={Astro.url.pathname} />
 
   {/* Honeypot: off-screen for people, irresistible to bots. Not aria-hidden —

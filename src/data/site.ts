@@ -12,7 +12,11 @@ export const BUSINESS = {
   name: 'OK Plumbing and Heating',
   shortName: 'OK Plumbing',
   established: 2010,
-  yearsLabel: '15+',
+  // Derived, so it cannot drift from `established` the way a hardcoded
+  // "15+" did — that still said fifteen in the site's sixteenth year.
+  get yearsLabel() {
+    return `${new Date().getFullYear() - this.established}+`;
+  },
   /** Main mobile. */
   mobile: { display: '07444 419144', tel: '+447444419144' },
   landline: { display: '020 8811 2551', tel: '+442088112551' },

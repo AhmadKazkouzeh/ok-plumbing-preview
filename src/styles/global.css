@@ -58,6 +58,14 @@
     }
   }
 
+  html,
+  body {
+    /* Guards against sideways scroll. Deliberately `clip`, not `hidden`:
+       `hidden` makes the element a scroll container, which breaks
+       `position: sticky` on the header inside it. */
+    overflow-x: clip;
+  }
+
   body {
     margin: 0;
     background: #fff;

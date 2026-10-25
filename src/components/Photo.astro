@@ -85,6 +85,7 @@ const frameStyle = [
         src={match[1].default}
         alt={alt ?? caption.replace(/^(photo|portrait|map)\s+—\s+/i, '')}
         width={width}
+        widths={[Math.round(width / 2), width, width * 2]}
         sizes={sizes}
         loading={eager ? 'eager' : 'lazy'}
         decoding={eager ? 'sync' : 'async'}

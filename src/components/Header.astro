@@ -152,6 +152,10 @@ const isCurrent = (href: string) => path === trim(href);
       toggle.setAttribute('aria-expanded', String(open));
       // Stop the page scrolling behind the drawer, which otherwise carries the
       // open menu off the top of the screen.
+      // Lock both: the root is the scrolling element, and `overflow-x: clip`
+      // on html/body (the sideways-scroll guard in global.css) means locking
+      // body alone no longer stops the page moving behind the drawer.
+      document.documentElement.style.overflow = open ? 'hidden' : '';
       document.body.style.overflow = open ? 'hidden' : '';
       if (open) focusables()[0]?.focus();
     };

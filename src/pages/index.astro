@@ -125,7 +125,9 @@ const faqSchema = {
         <div class="leading-[1.35]">
           <Stars />
           <p class="m-0 text-[13.5px] font-semibold text-cardtext">
-            Google reviews from London customers
+            {BUSINESS.rating.count
+              ? `From ${BUSINESS.rating.count} Google reviews`
+              : 'Google reviews'}
           </p>
         </div>
       </div>
@@ -305,12 +307,14 @@ const faqSchema = {
   <section class="on-dark section bg-ink px-6 text-tint">
     <div class="mx-auto max-w-[1240px]">
       <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
-        <h2 class="h2 max-w-[22ch]">What London customers say</h2>
+        <h2 class="h2 max-w-[22ch]">What our customers say</h2>
         <div class="flex items-center gap-3.5 rounded-[10px] border border-tint/20 px-[18px] py-3.5">
           <p class="m-0 text-[32px] font-extrabold tracking-[-.03em]">{BUSINESS.rating.value}</p>
           <p class="m-0 text-[13px] leading-[1.35] font-semibold text-tint/70">
             <Stars size={13} />
-            Google reviews
+            {BUSINESS.rating.count
+              ? `From ${BUSINESS.rating.count} Google reviews`
+              : 'Google reviews'}
           </p>
         </div>
       </div>

@@ -11,7 +11,7 @@ import { BUSINESS } from '~/data/site';
 >
   <PageHeader
     crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
-    title="Fifteen years of London plumbing and heating"
+    title={`${new Date().getFullYear() - BUSINESS.established} years of London plumbing and heating`}
     intro="A small West London firm, Gas Safe registered, working mostly on recommendation. The engineer who quotes your job is the engineer who does it."
   />
 

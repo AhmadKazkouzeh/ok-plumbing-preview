@@ -11,9 +11,16 @@ interface Props {
   description: string;
   /** Extra JSON-LD for this page (e.g. FAQPage). */
   schema?: Record<string, unknown> | Record<string, unknown>[];
+  /**
+   * Keep the page out of the index and emit no canonical. For /404/, which
+   * Apache serves as the body of every missing URL: without this, one
+   * indexable page answers to unlimited addresses and its canonical points at
+   * /404/, which itself 404s.
+   */
+  noindex?: boolean;
 }
 
-const { title, description, schema } = Astro.props;
+const { title, description, schema, noindex = false } = Astro.props;
 
 // Trailing slash, to match what the sitemap lists and what a directory-format
 // build actually serves.
@@ -106,16 +113,16 @@ const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content="#0E1621" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
     <meta name="generator" content={Astro.generator} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={BUSINESS.name} />
     <meta property="og:title" content={title} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:image" content={new URL('/og.png', SITE_URL).href} />
     <meta property="og:image:width" content="1200" />
@@ -147,14 +154,12 @@ const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
       Skip to content
     </a>
 
-    <div class="max-w-full overflow-x-hidden">
-      <TopBar />
-      <Header />
-      <main id="main">
-        <slot />
-      </main>
-      <MobileCallBar />
-      <Footer />
-    </div>
+    <TopBar />
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <MobileCallBar />
+    <Footer />
   </body>
 </html>
